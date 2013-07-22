@@ -156,7 +156,7 @@ void TauIdPreSelCycle::ExecuteEvent( const SInputData& id, Double_t weight) thro
   
   BaseHists* HistsJets = GetHistCollection("Jets");
   BaseHists* HistsTopJets = GetHistCollection("TopJets");
-  BaseHists* HistsHT = GetHistCollection("Events");
+  BaseHists* HistsEvents = GetHistCollection("Events");
   BaseHists* HistsMuons = GetHistCollection("Muons");
   BaseHists* HistsTaus = GetHistCollection("Taus");
   BaseHists* HistsElectrons = GetHistCollection("Electrons");

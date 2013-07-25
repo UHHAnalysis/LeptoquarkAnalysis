@@ -2,18 +2,16 @@
 <!DOCTYPE JobConfiguration PUBLIC "" "JobConfig.dtd"[
 <!ENTITY TTbar SYSTEM "TTbar_Powheg.xml">
 <!ENTITY Wjets SYSTEM "Wjets.xml">
-<!ENTITY QCD_Pt-15to3000 SYSTEM "QCD_Pt-15to3000.xml">
 <!ENTITY DY_10to50 SYSTEM "DY_10to50.xml">
-<!ENTITY DY_50toInf SYSTEM "DY_50toInf.xml">
 <!ENTITY SingleTop_T_tch SYSTEM "ST_t_t.xml">
 <!ENTITY SingleTop_T_tWch SYSTEM "ST_t_tW.xml">
 <!ENTITY SingleTop_T_sch SYSTEM "ST_t_s.xml">
 <!ENTITY SingleTop_Tbar_tch SYSTEM "ST_tbar_t.xml">
 <!ENTITY SingleTop_Tbar_tWch SYSTEM "ST_tbar_tW.xml">
 <!ENTITY SingleTop_Tbar_sch SYSTEM "ST_tbar_s.xml">
-<!ENTITY WW SYSTEM "WW.xml">
-<!ENTITY ZZ SYSTEM "ZZ.xml">
-<!ENTITY WZ SYSTEM "WZ.xml">
+<!ENTITY WW SYSTEM "../../SFrameAnalysis/config/Samples_TTBSM53/WW.xml">
+<!ENTITY ZZ SYSTEM "../../SFrameAnalysis/config/Samples_TTBSM53/ZZ.xml">
+<!ENTITY WZ SYSTEM "../../SFrameAnalysis/config/Samples_TTBSM53/WZ.xml">
 <!ENTITY MuData SYSTEM "SingleMu.xml">
 <!ENTITY MuData_C_recover SYSTEM "SingleMu_C_recover.xml">
 <!ENTITY W1Jets SYSTEM "W1Jets.xml">
@@ -45,25 +43,38 @@
 	<Library Name="libJetMETObjects" />
 	<Library Name="libSFrameTools" />
 	<Library Name="libAnalysis" />
+	<Library Name="libLQAnalysis" />
 	<Library Name="libSFramePlugIns" />
 
 	<Package Name="SFrameCore.par" />
 	<Package Name="SFramePlugIns.par" />
 	<Package Name="SFrameTools.par" />
 	<Package Name="Analysis.par" />
+	<Package Name="LQAnalysis.par" />
 
 
 
-	     <!--                 <Cycle Name="LQPreSelCycle"  OutputDirectory="/scratch/hh/dust/naf/cms/user/mameyer/proof_JEC_up/" PostFix="_test" TargetLumi="19500" > -->	 	
-	                <!--   <Cycle Name="LQPreSelCycle"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="" OutputDirectory="/scratch/hh/dust/naf/cms/user/mameyer/" PostFix="_JER_up" TargetLumi="19500" >   -->  	 
-	        <Cycle Name="LQPreSelCycle"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/scratch/hh/dust/naf/cms/user/mameyer/proof/" OutputDirectory="/scratch/hh/dust/naf/cms/user/mameyer/" PostFix="_JEC_down" TargetLumi="19500" >   	 	
+	<!--     <Cycle Name="LQPreSelCycle"  OutputDirectory="/scratch/hh/dust/naf/cms/user/mameyer/proof_JEC_up/" PostFix="_test" TargetLumi="19500" > -->	 	
+	<Cycle Name="LQPreSelCycle"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/scratch/hh/dust/naf/cms/user/mameyer/proof/" OutputDirectory="/scratch/hh/dust/naf/cms/user/mameyer/" PostFix="" TargetLumi="19500" >   	 	
 
 
+
+<!--	        <InputData Lumi="11210.9" NEventsMax="-1" Type="DATA" Version="DATA" Cacheable="True">
+                        &MuData;
+			<InputTree Name="AnalysisTree" /> 
+			<OutputTree Name="AnalysisTree" />  
+		</InputData>   	 
+ 
+		<InputData Lumi="11210.9" NEventsMax="-1" Type="DATA" Version="DATA_CRecover" Cacheable="True">
+                        &MuData_C_recover;
+			<InputTree Name="AnalysisTree" /> 
+			<OutputTree Name="AnalysisTree" />  
+		</InputData>  			
    	
-<!--	      <InputData Lumi="1107.1" NEventsMax="-1" Type="MC" Version="LQ150" Cacheable="False">
-		<In FileName="dcap://dcache-cms-dcap.desy.de//pnfs/desy.de/cms/tier2/store/user/peiffer/SFrame_Ntuples_v53X/LQ150/Ntuple_1_1_HSR.root" Lumi="0.0"/>  
-		       <InputTree Name="AnalysisTree" />
-		       <OutputTree Name="AnalysisTree" />
+		<InputData Lumi="1107.1" NEventsMax="-1" Type="MC" Version="LQ150" Cacheable="False">
+			<In FileName="dcap://dcache-cms-dcap.desy.de//pnfs/desy.de/cms/tier2/store/user/peiffer/SFrame_Ntuples_v53X/LQ150/Ntuple_1_1_HSR.root" Lumi="0.0"/>  
+			<InputTree Name="AnalysisTree" />
+		        <OutputTree Name="AnalysisTree" />
 		</InputData>  
 		
   		<InputData Lumi="4873.3" NEventsMax="-1" Type="MC" Version="LQ200" Cacheable="False">
@@ -172,19 +183,7 @@
 		<In FileName="dcap://dcache-cms-dcap.desy.de//pnfs/desy.de/cms/tier2/store/user/peiffer/SFrame_Ntuples_v53X/ttZ/Ntuple_1_1_8Sd.root" Lumi="0.0"/>   
                         <InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData> 		 	   
-
-		<InputData Lumi="11210.9" NEventsMax="-1" Type="DATA" Version="DATA" Cacheable="True">
-                        &MuData;
-			<InputTree Name="AnalysisTree" /> 
-			<OutputTree Name="AnalysisTree" />  
-		</InputData>   	 
- 
-		<InputData Lumi="11210.9" NEventsMax="-1" Type="DATA" Version="DATA_CRecover" Cacheable="True">
-                        &MuData_C_recover;
-			<InputTree Name="AnalysisTree" /> 
-			<OutputTree Name="AnalysisTree" />  
-		</InputData>  			 	   		  	     	
+		</InputData> 		 	    	   		  	     	
 
 		<InputData Lumi="92270" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="True">
 		        &TTbar;
@@ -280,7 +279,7 @@
                         &SingleTop_Tbar_sch;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />  	 
-		</InputData>   
+		</InputData>   -->
 	        
 		<InputData Lumi="182490" NEventsMax="-1" Type="MC" Version="WW" Cacheable="True">
                         &WW;
@@ -288,7 +287,7 @@
 			<OutputTree Name="AnalysisTree" />  
 		</InputData>  	  
 
-		<InputData Lumi="1214680" NEventsMax="-1" Type="MC" Version="ZZ" Cacheable="True">
+	<!--	<InputData Lumi="1214680" NEventsMax="-1" Type="MC" Version="ZZ" Cacheable="True">
                         &ZZ;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />  
@@ -353,13 +352,13 @@
 		        &QCDMu600to800;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />
-		</InputData> -->
+		</InputData> 
 
 		<InputData Lumi="11139004" NEventsMax="-1" Type="MC" Version="QCDMu800to1000" Cacheable="False">
 		        &QCDMu800to1000;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />
-		</InputData>
+		</InputData>-->
 
 <!--	        <InputData Lumi="64096.9" NEventsMax="-1" Type="MC" Version="TT_scaledown" Cacheable="False">
 		        &TT_scaledown;
@@ -378,35 +377,25 @@
 		      <Item Name="ElectronCollection" Value="selectedPatElectronsPFlow" /> 
 		      <Item Name="MuonCollection" Value="selectedPatMuonsPFlow" />
 	              <Item Name="TauCollection" Value="selectedPatTausPFlow" />
-                 <!--      <Item Name="TauCollection" Value="selectedPatTaus" />-->
+                 <!-- <Item Name="TauCollection" Value="selectedPatTaus" />-->
 		      <Item Name="PrimaryVertexCollection" Value="goodOfflinePrimaryVertices" /> 
 		      <Item Name="METName" Value="patMETs" /> 
-             <!--     <Item Name="addGenInfo" Value="True" />-->
+                 <!-- <Item Name="addGenInfo" Value="True" />-->
 		      <Item Name="TopJetCollection" Value="goodPatJetsCATopTagPF" />
 		      <Item Name="PrunedJetCollection" Value="goodPatJetsCA8PrunedPF" /> 
 		      <Item Name="TopJetCollectionGen" Value="caTopTagGen" />
-	     <!--     <Item Name="PhotonCollection" Value="patPhotons" />-->
+	         <!-- <Item Name="PhotonCollection" Value="patPhotons" />-->
 		      <Item Name="GenParticleCollection" Value="GenParticles" />
 		      <Item Name="writeTTbarReco" Value="False" />  
 		      <Item Name="readTTbarReco" Value="False" />
 
-	 <!--	      <Item Name="PU_Filename_MC" Value="/scratch/hh/dust/naf/cms/user/peiffer/PileUpHistos/PileUpHistoCycle" />
-		      <Item Name="PU_Filename_Data" Value="/scratch/hh/dust/naf/cms/user/peiffer/PileUpHistos/MyDataPileupHistogram.root" />
-		      <Item Name="PU_Histname_Data" Value="pileup" />
-		      <Item Name="PU_Histname_MC" Value="N_pileup_hist" />-->
-		      
-	 <!--	      <Item Name="LumiFilePath" Value="/scratch/hh/dust/naf/cms/user/peiffer/Analysis53X/LumiFiles" />
-		      <Item Name="LumiFileName" Value="IsoMu.root" />
-		      <Item Name="LumiTrigger" Value="HLT_IsoMu24_v" />-->
-		      
-		       <Item Name="JECFileLocation" Value="/afs/desy.de/user/k/kogler/JECFiles/" />
-		     <!--  <Item Name="JECDataGlobalTag" Value="FT_53_V21_AN3" />           -->
-		       <Item Name="JECDataGlobalTag" Value="GR_R_53_V11" />    
-		       <Item Name="JECMCGlobalTag" Value="START53_V20" />
-		       <Item Name="JECJetCollection" Value="AK5PFchs" />
+		      <Item Name="JECFileLocation" Value="/afs/desy.de/user/k/kogler/JECFiles/" />
+		      <Item Name="JECDataGlobalTag" Value="GR_R_53_V11" />    
+		      <Item Name="JECMCGlobalTag" Value="START53_V20" />
+		      <Item Name="JECJetCollection" Value="AK5PFchs" />
 	
-	               <Item Name="SystematicUncertainty" Value="JEC" />
-                       <Item Name="SystematicVariation" Value="down" /> 
+	              <Item Name="SystematicUncertainty" Value="none" />
+                      <Item Name="SystematicVariation" Value="down" /> 
 		      
 		</UserConfig>
 	</Cycle>

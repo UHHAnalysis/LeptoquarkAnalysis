@@ -89,13 +89,13 @@ void LQCycle::BeginInputData( const SInputData& id ) throw( SError )
   MET50Selection -> addSelectionModule(new METCut(50,100000000));
   
   Selection* HT350Selection = new Selection("HT350Selection");
-  HT350Selection -> addSelectionModule(new HTCut(350,100000000));
+  HT350Selection -> addSelectionModule(new STCut(350,100000000));
   
   Selection* HT400Selection = new Selection("HT400Selection");
-  HT400Selection -> addSelectionModule(new HTCut(400,100000000));
+  HT400Selection -> addSelectionModule(new STCut(400,100000000));
   
   Selection* HT700Selection = new Selection("HT700Selection");
-  HT700Selection -> addSelectionModule(new HTCut(700,100000000));
+  HT700Selection -> addSelectionModule(new STCut(700,100000000));
   
   Selection* SameSignSelection = new Selection("SameSignSelection");
   SameSignSelection -> addSelectionModule(new SameSignCut());
@@ -459,17 +459,15 @@ void LQCycle::FillControlHistos(TString postfix)
 {
     // fill some control histograms, need to be defined in BeginInputData
 
-    BaseHists* eventhists = GetHistCollection((std::string)("Event"+postfix));
+    BaseHists* eventhists = GetHistCollection((std::string)("Events"+postfix));
     BaseHists* jethists = GetHistCollection((std::string)("Jets"+postfix));
-    BaseHists* elehists = GetHistCollection((std::string)("Electron"+postfix));
-    BaseHists* muonhists = GetHistCollection((std::string)("Muon"+postfix));
-    BaseHists* tauhists = GetHistCollection((std::string)("Tau"+postfix));
-    BaseHists* topjethists = GetHistCollection((std::string)("TopJets"+postfix));
-
+    BaseHists* elehists = GetHistCollection((std::string)("Electrons"+postfix));
+    BaseHists* muonhists = GetHistCollection((std::string)("Muons"+postfix));
+    BaseHists* tauhists = GetHistCollection((std::string)("Taus"+postfix));
+    
     eventhists->Fill();
     jethists->Fill();
     elehists->Fill();
     muonhists->Fill();
     tauhists->Fill();
-    topjethists->Fill();
 }

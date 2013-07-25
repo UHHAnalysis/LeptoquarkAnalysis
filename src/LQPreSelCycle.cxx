@@ -118,8 +118,7 @@ void LQPreSelCycle::BeginInputData( const SInputData& id ) throw( SError )
   // ---------------- set up the histogram collections --------------------- 
   
   RegisterHistCollection( new JetHists("Jets_NoCuts"));
-  RegisterHistCollection( new TopJetHists("TopJets_NoCuts"));
-  RegisterHistCollection( new EventHists("HT_NoCuts"));
+  RegisterHistCollection( new EventHists("Events_NoCuts"));
   RegisterHistCollection( new MuonHists("Muons_NoCuts"));
   RegisterHistCollection( new TauHists("Taus_NoCuts"));
   RegisterHistCollection( new ElectronHists("Electrons_NoCuts"));
@@ -129,28 +128,24 @@ void LQPreSelCycle::BeginInputData( const SInputData& id ) throw( SError )
   RegisterHistCollection( new ElectronHists("Electrons_JetSelection"));
   RegisterHistCollection( new MuonHists("Muons_JetSelection"));
   RegisterHistCollection( new EventHists("Events_JetSelection"));
-  RegisterHistCollection( new TopJetHists("TopJets_JetSelection"));
   
   RegisterHistCollection( new JetHists("Jets_HTSelection"));
   RegisterHistCollection( new TauHists("Taus_HTSelection"));
   RegisterHistCollection( new ElectronHists("Electrons_HTSelection"));
   RegisterHistCollection( new MuonHists("Muons_HTSelection"));
   RegisterHistCollection( new EventHists("Events_HTSelection"));
-  RegisterHistCollection( new TopJetHists("TopJets_HTSelection"));
       
   RegisterHistCollection( new JetHists("Jets_TauSelection"));
   RegisterHistCollection( new TauHists("Taus_TauSelection"));
   RegisterHistCollection( new ElectronHists("Electrons_TauSelection"));
   RegisterHistCollection( new MuonHists("Muons_TauSelection"));
   RegisterHistCollection( new EventHists("Events_TauSelection"));
-  RegisterHistCollection( new TopJetHists("TopJets_TauSelection"));
    
   RegisterHistCollection( new JetHists("Jets_MuonSelection"));
   RegisterHistCollection( new TauHists("Taus_MuonSelection"));
   RegisterHistCollection( new ElectronHists("Electrons_MuonSelection"));
   RegisterHistCollection( new MuonHists("Muons_MuonSelection"));
   RegisterHistCollection( new EventHists("Events_MuonSelection"));
-  RegisterHistCollection( new TopJetHists("TopJets_MuonSelection"));
 
   // important: initialise histogram collections after their definition
   InitHistos();
@@ -247,17 +242,15 @@ void LQPreSelCycle::FillControlHistos(TString postfix)
 {
     // fill some control histograms, need to be defined in BeginInputData
 
-    BaseHists* eventhists = GetHistCollection((std::string)("Event"+postfix));
+    BaseHists* eventhists = GetHistCollection((std::string)("Events"+postfix));
     BaseHists* jethists = GetHistCollection((std::string)("Jets"+postfix));
-    BaseHists* elehists = GetHistCollection((std::string)("Electron"+postfix));
-    BaseHists* muonhists = GetHistCollection((std::string)("Muon"+postfix));
-    BaseHists* tauhists = GetHistCollection((std::string)("Tau"+postfix));
-    BaseHists* topjethists = GetHistCollection((std::string)("TopJets"+postfix));
-
+    BaseHists* elehists = GetHistCollection((std::string)("Electrons"+postfix));
+    BaseHists* muonhists = GetHistCollection((std::string)("Muons"+postfix));
+    BaseHists* tauhists = GetHistCollection((std::string)("Taus"+postfix));
+    
     eventhists->Fill();
     jethists->Fill();
     elehists->Fill();
     muonhists->Fill();
     tauhists->Fill();
-    topjethists->Fill();
 }

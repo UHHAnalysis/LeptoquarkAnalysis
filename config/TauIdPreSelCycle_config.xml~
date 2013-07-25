@@ -52,13 +52,13 @@
 
 
  
-  	    <!--                  <Cycle Name="TauIdPreSelCycle"  OutputDirectory="./" PostFix="_thesis" TargetLumi="19500" >  -->	 
-	   <!--             <Cycle Name="TauIdPreSelCycle"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="" OutputDirectory="/scratch/hh/dust/naf/cms/user/mameyer/" PostFix="test" TargetLumi="19500" >     	 -->
- 	          <Cycle Name="TauIdPreSelCycle"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/scratch/hh/dust/naf/cms/user/mameyer/proof/" OutputDirectory="/scratch/hh/dust/naf/cms/user/mameyer/" PostFix="_thesis" TargetLumi="19500" >     
+  <!--        <Cycle Name="TauIdPreSelCycle"  OutputDirectory="./" PostFix="_thesis" TargetLumi="19500" >  -->	 
+
+ 	      <Cycle Name="TauIdPreSelCycle"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/scratch/hh/dust/naf/cms/user/mameyer/proof/" OutputDirectory="/scratch/hh/dust/naf/cms/user/mameyer/" PostFix="_thesis" TargetLumi="19500" >     
 
 
    	
- <!--	      <InputData Lumi="1107.1" NEventsMax="-1" Type="MC" Version="LQ150" Cacheable="False">
+ <!--	        <InputData Lumi="1107.1" NEventsMax="-1" Type="MC" Version="LQ150" Cacheable="False">
 		<In FileName="dcap://dcache-cms-dcap.desy.de//pnfs/desy.de/cms/tier2/store/user/peiffer/SFrame_Ntuples_v53X/LQ150/Ntuple_1_1_HSR.root" Lumi="0.0"/>  
 		       <InputTree Name="AnalysisTree" />
 		       <OutputTree Name="AnalysisTree" />
@@ -183,8 +183,7 @@
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />  
 		</InputData>  				 	   		  	     	
-	  	     	
-			
+	  	     				
 		<InputData Lumi="92270" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="True">
 		        &TTbar;
 			<InputTree Name="AnalysisTree" />
@@ -358,7 +357,7 @@
 		      <Item Name="ElectronCollection" Value="selectedPatElectronsPFlow" /> 
 		      <Item Name="MuonCollection" Value="selectedPatMuonsPFlow" />
 	              <Item Name="TauCollection" Value="selectedPatTausPFlow" />
-                 <!--      <Item Name="TauCollection" Value="selectedPatTaus" />-->
+             <!--     <Item Name="TauCollection" Value="selectedPatTaus" />-->
 		      <Item Name="PrimaryVertexCollection" Value="goodOfflinePrimaryVertices" /> 
 		      <Item Name="METName" Value="patMETs" /> 
              <!--     <Item Name="addGenInfo" Value="True" />-->
@@ -369,25 +368,14 @@
 		      <Item Name="GenParticleCollection" Value="GenParticles" />
 		      <Item Name="writeTTbarReco" Value="False" />  
 		      <Item Name="readTTbarReco" Value="False" />
-
-	 <!--	      <Item Name="PU_Filename_MC" Value="/scratch/hh/dust/naf/cms/user/peiffer/PileUpHistos/PileUpHistoCycle" />
-		      <Item Name="PU_Filename_Data" Value="/scratch/hh/dust/naf/cms/user/peiffer/PileUpHistos/MyDataPileupHistogram.root" />
-		      <Item Name="PU_Histname_Data" Value="pileup" />
-		      <Item Name="PU_Histname_MC" Value="N_pileup_hist" />-->
-		      
-	 <!--	      <Item Name="LumiFilePath" Value="/scratch/hh/dust/naf/cms/user/peiffer/Analysis53X/LumiFiles" />
-		      <Item Name="LumiFileName" Value="IsoMu.root" />
-		      <Item Name="LumiTrigger" Value="HLT_IsoMu24_v" />-->
-		      
 	
-	               <Item Name="JECFileLocation" Value="/afs/desy.de/user/k/kogler/JECFiles/" />
-		     <!--  <Item Name="JECDataGlobalTag" Value="FT_53_V21_AN3" />           -->
-		       <Item Name="JECDataGlobalTag" Value="GR_R_53_V11" />    
-		       <Item Name="JECMCGlobalTag" Value="START53_V20" />
-		       <Item Name="JECJetCollection" Value="AK5PFchs" />
+	              <Item Name="JECFileLocation" Value="/afs/desy.de/user/k/kogler/JECFiles/" />
+		      <Item Name="JECDataGlobalTag" Value="GR_R_53_V11" />    
+		      <Item Name="JECMCGlobalTag" Value="START53_V20" />
+		      <Item Name="JECJetCollection" Value="AK5PFchs" />
 
-	               <Item Name="SystematicUncertainty" Value="none" />
-                       <Item Name="SystematicVariation" Value="up" />
+	              <Item Name="SystematicUncertainty" Value="none" />
+                      <Item Name="SystematicVariation" Value="up" />
 		      
 		</UserConfig>
 	</Cycle>

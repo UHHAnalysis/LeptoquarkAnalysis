@@ -10,12 +10,15 @@
 	<Library Name="libJetMETObjects" />
 	<Library Name="libAnalysis" />
 	<Library Name="libSFramePlugIns" />
-
+	<Library Name="libLQAnalysis" />
+	<Library Name="libNtuple" />
+	
 	<Package Name="SFrameCore.par" />
 	<Package Name="SFramePlugIns.par" />
 	<Package Name="SFrameTools.par" />
 	<Package Name="Analysis.par" />
-
+	<Package Name="LQAnalysis.par" />
+	<Package Name="Ntuple.par" />
 
 
                  <Cycle Name="TauIdCycle"  OutputDirectory="./" PostFix="_thesis" TargetLumi="19619" >     	  	 	       	  	     	  				 
@@ -271,9 +274,9 @@
 		      <Item Name="PrimaryVertexCollection" Value="goodOfflinePrimaryVertices" /> 
 		      <Item Name="METName" Value="patMETs" /> 
 		<!--  <Item Name="addGenInfo" Value="True" />-->
-		      <Item Name="TopJetCollection" Value="goodPatJetsCATopTagPF" />
-		      <Item Name="PrunedJetCollection" Value="goodPatJetsCA8PrunedPF" /> 
-		      <Item Name="TopJetCollectionGen" Value="caTopTagGen" />
+		<!--  <Item Name="TopJetCollection" Value="goodPatJetsCATopTagPF" />-->
+		<!--  <Item Name="PrunedJetCollection" Value="goodPatJetsCA8PrunedPF" /> -->
+		<!--  <Item Name="TopJetCollectionGen" Value="caTopTagGen" />-->
 		<!--  <Item Name="PhotonCollection" Value="patPhotons" />-->
 		      <Item Name="GenParticleCollection" Value="GenParticles" />
 		      <Item Name="writeTTbarReco" Value="False" />  

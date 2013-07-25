@@ -86,42 +86,36 @@ void TauIdCycle::BeginInputData( const SInputData& id ) throw( SError )
   // ---------------- set up the histogram collections -------------------- 
 
   RegisterHistCollection( new JetHists("Jets_AntibTagSelection"));
-  RegisterHistCollection( new TopJetHists("TopJets_AntibTagSelection"));
   RegisterHistCollection( new EventHists("Events_AntibTagSelection"));
   RegisterHistCollection( new MuonHists("Muons_AntibTagSelection"));
   RegisterHistCollection( new TauHists("Taus_AntibTagSelection"));
   RegisterHistCollection( new ElectronHists("Electrons_AntibTagSelection"));
 
   RegisterHistCollection( new JetHists("Jets_RealTauSelection"));
-  RegisterHistCollection( new TopJetHists("TopJets_RealTauSelection"));
   RegisterHistCollection( new EventHists("Events_RealTauSelection"));
   RegisterHistCollection( new MuonHists("Muons_RealTauSelection"));
   RegisterHistCollection( new TauHists("Taus_RealTauSelection"));
   RegisterHistCollection( new ElectronHists("Electrons_RealTauSelection"));
 
   RegisterHistCollection( new JetHists("Jets_FakeTauSelection"));
-  RegisterHistCollection( new TopJetHists("TopJets_FakeTauSelection"));
   RegisterHistCollection( new EventHists("Events_FakeTauSelection"));
   RegisterHistCollection( new MuonHists("Muons_FakeTauSelection"));
   RegisterHistCollection( new TauHists("Taus_FakeTauSelection"));
   RegisterHistCollection( new ElectronHists("Electrons_FakeTauSelection"));
 
   RegisterHistCollection( new JetHists("Jets_AntibTagSel_MediumTauSelection"));
-  RegisterHistCollection( new TopJetHists("TopJets_AntibTagSel_MediumTauSelection"));
   RegisterHistCollection( new EventHists("Events_AntibTagSel_MediumTauSelection"));
   RegisterHistCollection( new MuonHists("Muons_AntibTagSel_MediumTauSelection"));
   RegisterHistCollection( new TauHists("Taus_AntibTagSel_MediumTauSelection"));
   RegisterHistCollection( new ElectronHists("Electrons_AntibTagSelection_MediumTauSelection"));
 
   RegisterHistCollection( new JetHists("Jets_RealTauSelection_MediumTauSelection"));
-  RegisterHistCollection( new TopJetHists("TopJets_RealTauSelection_MediumTauSelection"));
   RegisterHistCollection( new EventHists("Events_RealTauSelection_MediumTauSelection"));
   RegisterHistCollection( new MuonHists("Muons_RealTauSelection_MediumTauSelection"));
   RegisterHistCollection( new TauHists("Taus_RealTauSelection_MediumTauSelection"));
   RegisterHistCollection( new ElectronHists("Electrons_RealTauSelection_MediumTauSelection"));
 
   RegisterHistCollection( new JetHists("Jets_FakeTauSelection_MediumTauSelection"));
-  RegisterHistCollection( new TopJetHists("TopJets_FakeTauSelection_MediumTauSelection"));
   RegisterHistCollection( new EventHists("Events_FakeTauSelection_MediumTauSelection"));
   RegisterHistCollection( new MuonHists("Muons_FakeTauSelection_MediumTauSelection"));
   RegisterHistCollection( new TauHists("Taus_FakeTauSelection_MediumTauSelection"));
@@ -225,17 +219,15 @@ void TauIdCycle::FillControlHistos(TString postfix)
 {
     // fill some control histograms, need to be defined in BeginInputData
 
-    BaseHists* eventhists = GetHistCollection((std::string)("Event"+postfix));
+    BaseHists* eventhists = GetHistCollection((std::string)("Events"+postfix));
     BaseHists* jethists = GetHistCollection((std::string)("Jets"+postfix));
-    BaseHists* elehists = GetHistCollection((std::string)("Electron"+postfix));
-    BaseHists* muonhists = GetHistCollection((std::string)("Muon"+postfix));
-    BaseHists* tauhists = GetHistCollection((std::string)("Tau"+postfix));
-    BaseHists* topjethists = GetHistCollection((std::string)("TopJets"+postfix));
+    BaseHists* elehists = GetHistCollection((std::string)("Electrons"+postfix));
+    BaseHists* muonhists = GetHistCollection((std::string)("Muons"+postfix));
+    BaseHists* tauhists = GetHistCollection((std::string)("Taus"+postfix));
 
     eventhists->Fill();
     jethists->Fill();
     elehists->Fill();
     muonhists->Fill();
     tauhists->Fill();
-    topjethists->Fill();
 }

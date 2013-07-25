@@ -18,10 +18,9 @@
 
 
 
-                 <Cycle Name="TauIdCycle"  OutputDirectory="./" PostFix="_thesis" TargetLumi="19619" >     	  	 	       	  	     	  				  			   	  	  
-	
-        <!--  	<Cycle Name="TauIdCycle"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="" OutputDirectory="./" PostFix="" TargetLumi="19484.7" >    -->	  	 	      	   	  	       	     			   		 					 	   	   	
-        <!--        <InputData Lumi="667.8" NEventsMax="-1" Type="MC" Version="LQ150" Cacheable="False">
+                 <Cycle Name="TauIdCycle"  OutputDirectory="./" PostFix="_thesis" TargetLumi="19619" >     	  	 	       	  	     	  				 
+         <!--    <Cycle Name="TauIdCycle"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="" OutputDirectory="./" PostFix="" TargetLumi="19484.7" >    -->	  	 	      	   	  	       	     			   		 					 	   	   	
+                <InputData Lumi="667.8" NEventsMax="-1" Type="MC" Version="LQ150" Cacheable="False">
 		<In FileName="/scratch/hh/dust/naf/cms/user/mameyer/mistagrate_thesis/TauIdPreSelCycle.MC.LQ150_thesis.root" Lumi="0.0"/>  
 		       <InputTree Name="AnalysisTree" />
 		</InputData>  
@@ -51,7 +50,6 @@
 			<InputTree Name="AnalysisTree" />
 		</InputData> 
 
-		
  		<InputData Lumi="305386.5" NEventsMax="-1" Type="MC" Version="LQ450" Cacheable="False">
 		<In FileName="/scratch/hh/dust/naf/cms/user/mameyer/mistagrate_thesis/TauIdPreSelCycle.MC.LQ450_thesis.root" Lumi="0.0"/>   
                         <InputTree Name="AnalysisTree" />
@@ -115,14 +113,14 @@
 		<InputData Lumi="1221860.5" NEventsMax="-1" Type="MC" Version="ttZ" Cacheable="False">
 		<In FileName="/scratch/hh/dust/naf/cms/user/mameyer/mistagrate_thesis/TauIdPreSelCycle.MC.ttZ_thesis.root" Lumi="0.0"/>   
                         <InputTree Name="AnalysisTree" />
-		</InputData>  -->		     		   
+		</InputData>  		     		   
   	    	 		  
  	 	<InputData Lumi="1.0" NEventsMax="-1" Type="DATA" Version="DATA" Cacheable="True">
                 <In FileName="/scratch/hh/dust/naf/cms/user/mameyer/mistagrate_thesis/TauIdPreSelCycle.DATA.DATA_thesis.root" Lumi="0.0"/>     
 			<InputTree Name="AnalysisTree" />  
 		</InputData>   	
 		
-<!--		<InputData Lumi="1.0" NEventsMax="-1" Type="DATA" Version="DATA_CRecover" Cacheable="True">
+		<InputData Lumi="1.0" NEventsMax="-1" Type="DATA" Version="DATA_CRecover" Cacheable="True">
                 <In FileName="/scratch/hh/dust/naf/cms/user/mameyer/mistagrate_thesis/TauIdPreSelCycle.DATA.DATA_CRecover_thesis.root" Lumi="0.0"/>          
 			<InputTree Name="AnalysisTree" />
 		</InputData> 
@@ -259,7 +257,7 @@
 	        <InputData Lumi="11139004" NEventsMax="-1" Type="MC" Version="QCDMu800to1000" Cacheable="False">
 		<In FileName="/scratch/hh/dust/naf/cms/user/mameyer/mistagrate_thesis/TauIdPreSelCycle.MC.QCDMu800to1000_thesis.root" Lumi="0.0"/>                
 			<InputTree Name="AnalysisTree" /> 
-		</InputData> -->
+		</InputData> 
 			  		
 			
 
@@ -269,14 +267,14 @@
 		      <Item Name="ElectronCollection" Value="selectedPatElectronsPFlow" /> 
 		      <Item Name="MuonCollection" Value="selectedPatMuonsPFlow" />
 		      <Item Name="TauCollection" Value="selectedPatTausPFlow" />
-		<!--       <Item Name="TauCollection" Value="selectedPatTaus" />-->
+		<!--  <Item Name="TauCollection" Value="selectedPatTaus" />-->
 		      <Item Name="PrimaryVertexCollection" Value="goodOfflinePrimaryVertices" /> 
 		      <Item Name="METName" Value="patMETs" /> 
-		      <!--    <Item Name="addGenInfo" Value="True" />-->
+		<!--  <Item Name="addGenInfo" Value="True" />-->
 		      <Item Name="TopJetCollection" Value="goodPatJetsCATopTagPF" />
 		      <Item Name="PrunedJetCollection" Value="goodPatJetsCA8PrunedPF" /> 
 		      <Item Name="TopJetCollectionGen" Value="caTopTagGen" />
-		      <!--<Item Name="PhotonCollection" Value="patPhotons" />-->
+		<!--  <Item Name="PhotonCollection" Value="patPhotons" />-->
 		      <Item Name="GenParticleCollection" Value="GenParticles" />
 		      <Item Name="writeTTbarReco" Value="False" />  
 		      <Item Name="readTTbarReco" Value="False" />

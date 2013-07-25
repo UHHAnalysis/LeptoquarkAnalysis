@@ -84,7 +84,7 @@ void LQPreSelCycle::BeginInputData( const SInputData& id ) throw( SError )
   TauSelection -> addSelectionModule(new NTauSelection(1,999,20,2.1));
   
   Selection* HTSelection = new Selection("HTSelection");
-  HTSelection -> addSelectionModule(new HTCut(350,100000000));
+  HTSelection -> addSelectionModule(new STCut(350,100000000));
  
   RegisterSelection(VertexSelection);
   RegisterSelection(MuonSelection);
@@ -119,7 +119,7 @@ void LQPreSelCycle::BeginInputData( const SInputData& id ) throw( SError )
   
   RegisterHistCollection( new JetHists("Jets_NoCuts"));
   RegisterHistCollection( new TopJetHists("TopJets_NoCuts"));
-  RegisterHistCollection( new EventHists("HT_NoCuts"));
+  RegisterHistCollection( new EventHists("Events_NoCuts"));
   RegisterHistCollection( new MuonHists("Muons_NoCuts"));
   RegisterHistCollection( new TauHists("Taus_NoCuts"));
   RegisterHistCollection( new ElectronHists("Electrons_NoCuts"));
@@ -247,17 +247,15 @@ void LQPreSelCycle::FillControlHistos(TString postfix)
 {
     // fill some control histograms, need to be defined in BeginInputData
 
-    BaseHists* eventhists = GetHistCollection((std::string)("Event"+postfix));
+    BaseHists* eventhists = GetHistCollection((std::string)("Events"+postfix));
     BaseHists* jethists = GetHistCollection((std::string)("Jets"+postfix));
-    BaseHists* elehists = GetHistCollection((std::string)("Electron"+postfix));
-    BaseHists* muonhists = GetHistCollection((std::string)("Muon"+postfix));
-    BaseHists* tauhists = GetHistCollection((std::string)("Tau"+postfix));
-    BaseHists* topjethists = GetHistCollection((std::string)("TopJets"+postfix));
-
+    BaseHists* elehists = GetHistCollection((std::string)("Electrons"+postfix));
+    BaseHists* muonhists = GetHistCollection((std::string)("Muons"+postfix));
+    BaseHists* tauhists = GetHistCollection((std::string)("Taus"+postfix));
+    
     eventhists->Fill();
     jethists->Fill();
     elehists->Fill();
     muonhists->Fill();
     tauhists->Fill();
-    topjethists->Fill();
 }

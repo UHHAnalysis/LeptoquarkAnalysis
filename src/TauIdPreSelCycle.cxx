@@ -106,7 +106,6 @@ void TauIdPreSelCycle::BeginInputData( const SInputData& id ) throw( SError )
   // ---------------- set up the histogram collections -------------------- 
   
   RegisterHistCollection( new JetHists("Jets"));
-  RegisterHistCollection( new TopJetHists("TopJets"));
   RegisterHistCollection( new EventHists("Events"));
   RegisterHistCollection( new MuonHists("Muons"));
   RegisterHistCollection( new TauHists("Taus"));
@@ -155,7 +154,6 @@ void TauIdPreSelCycle::ExecuteEvent( const SInputData& id, Double_t weight) thro
   
   
   BaseHists* HistsJets = GetHistCollection("Jets");
-  BaseHists* HistsTopJets = GetHistCollection("TopJets");
   BaseHists* HistsEvents = GetHistCollection("Events");
   BaseHists* HistsMuons = GetHistCollection("Muons");
   BaseHists* HistsTaus = GetHistCollection("Taus");
@@ -178,7 +176,6 @@ void TauIdPreSelCycle::ExecuteEvent( const SInputData& id, Double_t weight) thro
   if (!PreSelection->passSelection(bcc))  throw SError( SError::SkipEvent );
   
   HistsJets -> Fill();
-  HistsTopJets -> Fill();
   HistsMuons -> Fill();
   HistsTaus -> Fill();
   HistsElectrons  -> Fill();

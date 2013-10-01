@@ -63,23 +63,7 @@ void TauIdPreSelCycle::BeginInputData( const SInputData& id ) throw( SError )
   // Important: first call BeginInputData of base class
   AnalysisCycle::BeginInputData( id );
     
-  
-  std::vector<JetCorrectorParameters> pars;
-  
-  //    //see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookJetEnergyCorrections#GetTxtFiles how to get the txt files with jet energy corrections from the database
-  if(!addGenInfo()) {
-    pars.push_back(JetCorrectorParameters(m_JECFileLocation + "/" + m_JECDataGlobalTag + "_L1FastJet_" + m_JECJetCollection + ".txt"));
-    pars.push_back(JetCorrectorParameters(m_JECFileLocation + "/" + m_JECDataGlobalTag + "_L2Relative_" + m_JECJetCollection + ".txt"));
-    pars.push_back(JetCorrectorParameters(m_JECFileLocation + "/" + m_JECDataGlobalTag + "_L3Absolute_" + m_JECJetCollection + ".txt"));
-    pars.push_back(JetCorrectorParameters(m_JECFileLocation + "/" + m_JECDataGlobalTag + "_L2L3Residual_" + m_JECJetCollection + ".txt"));
-  } else {
-    pars.push_back(JetCorrectorParameters(m_JECFileLocation + "/" + m_JECMCGlobalTag + "_L1FastJet_" + m_JECJetCollection + ".txt"));
-    pars.push_back(JetCorrectorParameters(m_JECFileLocation + "/" + m_JECMCGlobalTag + "_L2Relative_" + m_JECJetCollection + ".txt"));
-    pars.push_back(JetCorrectorParameters(m_JECFileLocation + "/" + m_JECMCGlobalTag + "_L3Absolute_" + m_JECJetCollection + ".txt"));
-  }
-  
-  m_corrector = new FactorizedJetCorrector(pars);
-  
+      
   // uncertainty
   TString unc_file = m_JECFileLocation + "/" + m_JECDataGlobalTag + "_Uncertainty_" + m_JECJetCollection + ".txt";
   m_jes_unc = new JetCorrectionUncertainty(unc_file.Data());
@@ -96,22 +80,17 @@ void TauIdPreSelCycle::BeginInputData( const SInputData& id ) throw( SError )
   PreSelection -> addSelectionModule(new NPrimaryVertexSelection(1)); //at least one good PV
   PreSelection -> addSelectionModule(new NMuonSelection(1,1,30,2.1));
   PreSelection -> addSelectionModule(new NJetSelection(2,999,30,3.5));
-  PreSelection -> addSelectionModule(new NTauSelection(1,1,20,2.1));
+  PreSelection -> addSelectionModule(new NTauSelection(1,999,20,2.1));
   PreSelection -> addSelectionModule(new METCut(40,10000000));
   PreSelection -> addSelectionModule(new TriggerSelection("HLT_IsoMu24_eta2p1_v"));
-    
-  RegisterSelection(PreSelection);
   
+ 
+  RegisterSelection(PreSelection);
+   
   
   // ---------------- set up the histogram collections -------------------- 
   
-  RegisterHistCollection( new JetHists("Jets"));
-  RegisterHistCollection( new EventHists("Events"));
-  RegisterHistCollection( new MuonHists("Muons"));
-  RegisterHistCollection( new TauHists("Taus"));
-  RegisterHistCollection( new ElectronHists("Electrons"));
-  
-  // important: initialise histogram collections after their definition
+   // important: initialise histogram collections after their definition
   InitHistos();
   
   return;  
@@ -148,18 +127,8 @@ void TauIdPreSelCycle::ExecuteEvent( const SInputData& id, Double_t weight) thro
   // get the selections
   
   static Selection* PreSelection = GetSelection("PreSelection");
-  
    
-  // get the histogram collections
-  
-  
-  BaseHists* HistsJets = GetHistCollection("Jets");
-  BaseHists* HistsEvents = GetHistCollection("Events");
-  BaseHists* HistsMuons = GetHistCollection("Muons");
-  BaseHists* HistsTaus = GetHistCollection("Taus");
-  BaseHists* HistsElectrons = GetHistCollection("Electrons");
-
-  
+    
   Cleaner cleaner;
   
   EventCalc* calc = EventCalc::Instance();
@@ -172,15 +141,9 @@ void TauIdPreSelCycle::ExecuteEvent( const SInputData& id, Double_t weight) thro
   if (bcc->electrons) cleaner.ElectronCleaner(15,2.5,0.1);
   if (bcc->muons) cleaner.MuonCleaner(30,2.1);  
   if (bcc-> taus) cleaner.TauCleanerDecayModeFinding(20, 2.1);
-  
   if (!PreSelection->passSelection(bcc))  throw SError( SError::SkipEvent );
   
-  HistsJets -> Fill();
-  HistsMuons -> Fill();
-  HistsTaus -> Fill();
-  HistsElectrons  -> Fill();
-  HistsEvents -> Fill();
-  
+   
   WriteOutputTree();
 
   return;

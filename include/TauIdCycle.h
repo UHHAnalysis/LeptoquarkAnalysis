@@ -57,7 +57,7 @@ public:
    /// Function called for every event
    virtual void ExecuteEvent( const SInputData&, Double_t ) throw( SError );
   
-   /// Fill control histograms
+  /// Fill control histograms
    virtual void FillControlHistos(TString postfix="");
 
 private:

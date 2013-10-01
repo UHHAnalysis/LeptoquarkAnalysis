@@ -114,8 +114,13 @@ void LQCycle::BeginInputData( const SInputData& id ) throw( SError )
   
   Selection* MET100Selection = new Selection("MET100Selection");
   MET100Selection -> addSelectionModule(new METCut(100,100000000));
-    
+  
+  Selection* RealTauSelection  = new Selection("RealTauSelection");
+  RealTauSelection -> addSelectionModule(new GenTauSelection());
 
+  Selection* FakeTausSelectionElectron  = new Selection("FakeTausSelectionElectron");
+  FakeTausSelectionElectron -> addSelectionModule(new FakeTauSelectionElectron());
+  
   RegisterSelection(Trigger);
   RegisterSelection(TauSelection);
   RegisterSelection(MuonSelection);
@@ -132,6 +137,8 @@ void LQCycle::BeginInputData( const SInputData& id ) throw( SError )
   RegisterSelection(LeadingJet150Selection);
   RegisterSelection(ThirdJet50Selection);
   RegisterSelection(MET100Selection);
+  RegisterSelection(RealTauSelection);
+  RegisterSelection(FakeTausSelectionElectron);
   
 
   // ---------------- set up the histogram collections -------------------- 
@@ -172,6 +179,18 @@ void LQCycle::BeginInputData( const SInputData& id ) throw( SError )
   RegisterHistCollection( new MuonHists("Muons_MediumSelection"));
   RegisterHistCollection( new EventHists("Events_MediumSelection"));
 
+  RegisterHistCollection( new JetHists("Jets_MediumSelection_RealTauSelection"));
+  RegisterHistCollection( new TauHists("Taus_MediumSelection_RealTauSelection"));
+  RegisterHistCollection( new ElectronHists("Electrons_MediumSelection_RealTauSelection"));
+  RegisterHistCollection( new MuonHists("Muons_MediumSelection_RealTauSelection"));
+  RegisterHistCollection( new EventHists("Events_MediumSelection_RealTauSelection"));
+ 
+  RegisterHistCollection( new JetHists("Jets_MediumSelection_FakeTauSelection"));
+  RegisterHistCollection( new TauHists("Taus_MediumSelection_FakeTauSelection"));
+  RegisterHistCollection( new ElectronHists("Electrons_MediumSelection_FakeTauSelection"));
+  RegisterHistCollection( new MuonHists("Muons_MediumSelection_FakeTauSelection"));
+  RegisterHistCollection( new EventHists("Events_MediumSelection_FakeTauSelection"));
+
   RegisterHistCollection( new JetHists("Jets_HT700"));
   RegisterHistCollection( new TauHists("Taus_HT700"));
   RegisterHistCollection( new ElectronHists("Electrons_HT700"));
@@ -189,6 +208,12 @@ void LQCycle::BeginInputData( const SInputData& id ) throw( SError )
   RegisterHistCollection( new ElectronHists("Electrons_LeadingJet100"));
   RegisterHistCollection( new MuonHists("Muons_LeadingJet100"));
   RegisterHistCollection( new EventHists("Events_LeadingJet100"));
+
+  RegisterHistCollection( new JetHists("Jets_LeadingJet150"));
+  RegisterHistCollection( new TauHists("Taus_LeadingJet150"));
+  RegisterHistCollection( new ElectronHists("Electrons_LeadingJet150"));
+  RegisterHistCollection( new MuonHists("Muons_LeadingJet150"));
+  RegisterHistCollection( new EventHists("Events_LeadingJet150"));
   
   RegisterHistCollection( new JetHists("Jets_ThirdJet30"));
   RegisterHistCollection( new TauHists("Taus_ThirdJet30"));
@@ -231,7 +256,19 @@ void LQCycle::BeginInputData( const SInputData& id ) throw( SError )
   RegisterHistCollection( new ElectronHists("Electrons_HardSelection"));
   RegisterHistCollection( new MuonHists("Muons_HardSelection"));
   RegisterHistCollection( new EventHists("Events_HardSelection"));
+
+  RegisterHistCollection( new JetHists("Jets_HardSelection_RealTauSelection"));
+  RegisterHistCollection( new TauHists("Taus_HardSelection_RealTauSelection"));
+  RegisterHistCollection( new ElectronHists("Electrons_HardSelection_RealTauSelection"));
+  RegisterHistCollection( new MuonHists("Muons_HardSelection_RealTauSelection"));
+  RegisterHistCollection( new EventHists("Events_HardSelection_RealTauSelection"));
  
+  RegisterHistCollection( new JetHists("Jets_HardSelection_FakeTauSelection"));
+  RegisterHistCollection( new TauHists("Taus_HardSelection_FakeTauSelection"));
+  RegisterHistCollection( new ElectronHists("Electrons_HardSelection_FakeTauSelection"));
+  RegisterHistCollection( new MuonHists("Muons_HardSelection_FakeTauSelection"));
+  RegisterHistCollection( new EventHists("Events_HardSelection_FakeTauSelection"));
+
   RegisterHistCollection( new JetHists("Jets_SoftSelection"));
   RegisterHistCollection( new TauHists("Taus_SoftSelection"));
   RegisterHistCollection( new ElectronHists("Electrons_SoftSelection"));
@@ -244,7 +281,11 @@ void LQCycle::BeginInputData( const SInputData& id ) throw( SError )
   RegisterHistCollection( new MuonHists("Muons_SoftSelection_SameSignCut"));
   RegisterHistCollection( new EventHists("Events_SoftSelection_SameSignCut"));
   
-
+  RegisterHistCollection( new JetHists("Jets_FakeTausElectrons"));
+  RegisterHistCollection( new TauHists("Taus_FakeTausElectrons"));
+  RegisterHistCollection( new ElectronHists("Electrons_FakeTausElectrons"));
+  RegisterHistCollection( new MuonHists("Muons_FakeTausElectrons"));
+  RegisterHistCollection( new EventHists("Events_FakeTausElectrons"));
 
   // important: initialise histogram collections after their definition
   InitHistos();
@@ -297,10 +338,11 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
   static Selection* SameSignSelection = GetSelection("SameSignSelection");
   static Selection* OnebTagSelection = GetSelection("OnebTagSelection");
   static Selection* TwobTagSelection = GetSelection("TwobTagSelection");
-  static Selection* SoftSelection = GetSelection("SoftSelection");
   static Selection* LeadingJet150Selection = GetSelection("LeadingJet150Selection");
   static Selection* ThirdJet50Selection = GetSelection("ThirdJet50Selection");
   static Selection* MET100Selection = GetSelection("MET100Selection");
+  static Selection* RealTauSelection = GetSelection("RealTauSelection");
+  static Selection* FakeTausSelectionElectron = GetSelection("FakeTausSelectionElectron");
 
   
   Cleaner cleaner;
@@ -309,9 +351,6 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
   bool IsRealData = calc->IsRealData();
   
 
-  // 
-  if (calc -> GetRunNum() == 201191) throw SError( SError::SkipEvent );
-  
   // at least one tau decay mode finding pT>20 eta<2.1
   if (!TauSelection -> passSelection(bcc))  throw SError( SError::SkipEvent ); 
   FillControlHistos("_OneTauDecayModeFinding");
@@ -322,7 +361,7 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
   FillControlHistos("_Trigger");
   
   // all muons tight, pT > 30 GeV 
-  if (bcc-> muons) cleaner.MuonCleaner(30, 2.1); 
+  if (bcc-> muons) cleaner.MuonCleaner(30, 2.1,0.12); 
 
   // all jets loose PFId pT > 30GeV, eta < 2.5
   if (bcc->jets) cleaner.JetCleaner(30,2.5,true); 
@@ -347,15 +386,17 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
   // at least one tight tau
   if (!TauSelection -> passSelection(bcc))  throw SError( SError::SkipEvent ); 
   
-  //throw away all jets which have a distance smaller than DeltaR = 0.5 to a muon or a jet 
+  //throw away all jets which have a distance smaller than DeltaR = 0.5 to a tau 
   if (bcc->jets) cleaner.JetLeptonOverlapRemoval(); 
   
   // correction fake rate
   if (!IsRealData) calc -> ProduceWeight( m_lsf->GetTauWeight()); 
 
   // correction efficiency
-  if (!IsRealData) calc -> ProduceWeight( m_lsf->GetTauEffUnc());    
+  //if (!IsRealData) calc -> ProduceWeight( m_lsf->GetTauEffUnc());    
   FillControlHistos("_OneTightTau");
+
+  if (!IsRealData && FakeTausSelectionElectron -> passSelection(bcc)) FillControlHistos("_FakeTausElectrons");
 
   // at least three jets with pT > 30 GeV, eta < 2.5
   if (!JetSelection -> passSelection(bcc))  throw SError( SError::SkipEvent ); 
@@ -388,6 +429,14 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
   
   // medium selection without bTag
   FillControlHistos("_MediumSelection");
+  if (!IsRealData && RealTauSelection->passSelection(bcc))
+    {
+      FillControlHistos("_MediumSelection_RealTauSelection");
+    }
+  if (!IsRealData && !RealTauSelection->passSelection(bcc))
+    {
+      FillControlHistos("_MediumSelection_FakeTauSelection");
+    }
   
  
   if (HT700Selection -> passSelection(bcc)) 
@@ -409,6 +458,15 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
 		  // MET > 100 GeV
 		  FillControlHistos("_HardSelection");
 		  
+		  if (!IsRealData && RealTauSelection->passSelection(bcc))
+		    {
+		      FillControlHistos("_HardSelection_RealTauSelection");
+		    }
+		  if (!IsRealData && !RealTauSelection->passSelection(bcc))
+		    {
+		      FillControlHistos("_HardSelection_FakeTauSelection");
+		    }
+		  
 		  if (SameSignSelection-> passSelection(bcc))
 		    {
 		      // hard selection with same sign cut
@@ -419,8 +477,8 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
 	}
     }
   
-  // medium selection with at least one bTag 
-  if (OnebTagSelection -> passSelection(bcc)) FillControlHistos("_MediumSelection_OnebTagSelection");
+  // medium selection with at least one bTag                  
+  if (OnebTagSelection -> passSelection(bcc)) FillControlHistos("_MediumSelection_OnebTag");
     
   // medium selection with same sign cut
   if (SameSignSelection-> passSelection(bcc) ) FillControlHistos("_MediumSelection_SameSignCut"); 

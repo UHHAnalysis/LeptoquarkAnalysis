@@ -63,23 +63,7 @@ void TauIdPreSelCycle::BeginInputData( const SInputData& id ) throw( SError )
   // Important: first call BeginInputData of base class
   AnalysisCycle::BeginInputData( id );
     
-  
-  std::vector<JetCorrectorParameters> pars;
-  
-  //    //see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookJetEnergyCorrections#GetTxtFiles how to get the txt files with jet energy corrections from the database
-  if(!addGenInfo()) {
-    pars.push_back(JetCorrectorParameters(m_JECFileLocation + "/" + m_JECDataGlobalTag + "_L1FastJet_" + m_JECJetCollection + ".txt"));
-    pars.push_back(JetCorrectorParameters(m_JECFileLocation + "/" + m_JECDataGlobalTag + "_L2Relative_" + m_JECJetCollection + ".txt"));
-    pars.push_back(JetCorrectorParameters(m_JECFileLocation + "/" + m_JECDataGlobalTag + "_L3Absolute_" + m_JECJetCollection + ".txt"));
-    pars.push_back(JetCorrectorParameters(m_JECFileLocation + "/" + m_JECDataGlobalTag + "_L2L3Residual_" + m_JECJetCollection + ".txt"));
-  } else {
-    pars.push_back(JetCorrectorParameters(m_JECFileLocation + "/" + m_JECMCGlobalTag + "_L1FastJet_" + m_JECJetCollection + ".txt"));
-    pars.push_back(JetCorrectorParameters(m_JECFileLocation + "/" + m_JECMCGlobalTag + "_L2Relative_" + m_JECJetCollection + ".txt"));
-    pars.push_back(JetCorrectorParameters(m_JECFileLocation + "/" + m_JECMCGlobalTag + "_L3Absolute_" + m_JECJetCollection + ".txt"));
-  }
-  
-  m_corrector = new FactorizedJetCorrector(pars);
-  
+      
   // uncertainty
   TString unc_file = m_JECFileLocation + "/" + m_JECDataGlobalTag + "_Uncertainty_" + m_JECJetCollection + ".txt";
   m_jes_unc = new JetCorrectionUncertainty(unc_file.Data());
@@ -99,19 +83,33 @@ void TauIdPreSelCycle::BeginInputData( const SInputData& id ) throw( SError )
   PreSelection -> addSelectionModule(new NTauSelection(1,1,20,2.1));
   PreSelection -> addSelectionModule(new METCut(40,10000000));
   PreSelection -> addSelectionModule(new TriggerSelection("HLT_IsoMu24_eta2p1_v"));
-    
+  
+  Selection* RealTauSelection  = new Selection("RealTauSelection");
+  RealTauSelection -> addSelectionModule(new GenTauSelection());
+ 
+  Selection* TauSelection  = new Selection("TauSelection");
+  TauSelection -> addSelectionModule(new NTauSelection(1,1,20,2.1));
+ 
+
   RegisterSelection(PreSelection);
+  RegisterSelection(RealTauSelection);
+  RegisterSelection(TauSelection);
+  
   
   
   // ---------------- set up the histogram collections -------------------- 
   
-  RegisterHistCollection( new JetHists("Jets"));
-  RegisterHistCollection( new TopJetHists("TopJets"));
-  RegisterHistCollection( new EventHists("Events"));
-  RegisterHistCollection( new MuonHists("Muons"));
-  RegisterHistCollection( new TauHists("Taus"));
-  RegisterHistCollection( new ElectronHists("Electrons"));
-  
+  RegisterHistCollection( new JetHists("Jets_ControlPlots"));
+  RegisterHistCollection( new EventHists("Events_ControlPlots"));
+  RegisterHistCollection( new MuonHists("Muons_ControlPlots"));
+  RegisterHistCollection( new TauHists("Taus_ControlPlots"));
+  RegisterHistCollection( new ElectronHists("Electrons_ControlPlots"));
+
+  RegisterHistCollection( new JetHists("Jets_MediumTauSelection"));
+  RegisterHistCollection( new EventHists("Events_MediumTauSelection"));
+  RegisterHistCollection( new MuonHists("Muons_MediumTauSelection"));
+  RegisterHistCollection( new TauHists("Taus_MediumTauSelection"));
+  RegisterHistCollection( new ElectronHists("Electrons_MediumTauSelection"));
   // important: initialise histogram collections after their definition
   InitHistos();
   
@@ -149,17 +147,12 @@ void TauIdPreSelCycle::ExecuteEvent( const SInputData& id, Double_t weight) thro
   // get the selections
   
   static Selection* PreSelection = GetSelection("PreSelection");
+  static Selection* RealTauSelection = GetSelection("RealTauSelection");
+  static Selection* TauSelection = GetSelection("TauSelection");
   
-   
-  // get the histogram collections
+    // get the histogram collections
   
   
-  BaseHists* HistsJets = GetHistCollection("Jets");
-  BaseHists* HistsTopJets = GetHistCollection("TopJets");
-  BaseHists* HistsEvents = GetHistCollection("Events");
-  BaseHists* HistsMuons = GetHistCollection("Muons");
-  BaseHists* HistsTaus = GetHistCollection("Taus");
-  BaseHists* HistsElectrons = GetHistCollection("Electrons");
 
   
   Cleaner cleaner;
@@ -174,19 +167,41 @@ void TauIdPreSelCycle::ExecuteEvent( const SInputData& id, Double_t weight) thro
   if (bcc->electrons) cleaner.ElectronCleaner(15,2.5,0.1);
   if (bcc->muons) cleaner.MuonCleaner(30,2.1);  
   if (bcc-> taus) cleaner.TauCleanerDecayModeFinding(20, 2.1);
-  
   if (!PreSelection->passSelection(bcc))  throw SError( SError::SkipEvent );
   
-  HistsJets -> Fill();
-  HistsTopJets -> Fill();
-  HistsMuons -> Fill();
-  HistsTaus -> Fill();
-  HistsElectrons  -> Fill();
-  HistsEvents -> Fill();
+  if (bcc->jets) cleaner.JetCleaner(30,2.5);
+
+  if (!RealTauSelection->passSelection(bcc)) throw SError( SError::SkipEvent );
+
+  FillControlHistos("_ControlPlots"); 
+
+  if (bcc-> taus) cleaner.TauCleaner(20, 2.1); 
   
+  if (!TauSelection->passSelection(bcc)) throw SError( SError::SkipEvent );
+
+  FillControlHistos("_MediumTauSelection");
+
+  
+ 
   WriteOutputTree();
 
   return;
 
 }
 
+void TauIdPreSelCycle::FillControlHistos(TString postfix)
+{
+    // fill some control histograms, need to be defined in BeginInputData
+
+    BaseHists* eventhists = GetHistCollection((std::string)("Events"+postfix));
+    BaseHists* jethists = GetHistCollection((std::string)("Jets"+postfix));
+    BaseHists* elehists = GetHistCollection((std::string)("Electrons"+postfix));
+    BaseHists* muonhists = GetHistCollection((std::string)("Muons"+postfix));
+    BaseHists* tauhists = GetHistCollection((std::string)("Taus"+postfix));
+
+    eventhists->Fill();
+    jethists->Fill();
+    elehists->Fill();
+    muonhists->Fill();
+    tauhists->Fill();
+}

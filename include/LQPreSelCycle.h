@@ -56,9 +56,7 @@ public:
    /// Function called for every event
    virtual void ExecuteEvent( const SInputData&, Double_t ) throw( SError );
   
-   /// Fill control histograms
-   virtual void FillControlHistos(TString postfix="");
-  
+        
 private:
    //
    // Put all your private variables here
@@ -66,8 +64,7 @@ private:
   JetCorrectionUncertainty* m_jes_unc;
   // Macro adding the functions for dictionary generation
   ClassDef( LQPreSelCycle, 0 );
-  FactorizedJetCorrector* m_corrector;
-  
+   
 
 }; // class LQPreSelCycle
 

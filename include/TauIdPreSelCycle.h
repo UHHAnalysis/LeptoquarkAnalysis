@@ -56,7 +56,6 @@ public:
    /// Function called for every event
    virtual void ExecuteEvent( const SInputData&, Double_t ) throw( SError );
   
-  
 private:
    //
    // Put all your private variables here
@@ -64,8 +63,7 @@ private:
   JetCorrectionUncertainty* m_jes_unc;
   // Macro adding the functions for dictionary generation
   ClassDef( TauIdPreSelCycle, 0 );
-  FactorizedJetCorrector* m_corrector;
-
+  
 }; // class TauIdPreSelCycle
 
 

@@ -76,8 +76,6 @@ void TauIdCycle::BeginInputData( const SInputData& id ) throw( SError )
   Selection* OneTauSelection = new Selection("OneTauSelection");
   OneTauSelection -> addSelectionModule(new NTauSelection(1,1,20,2.1));
 
-  Selection* SameSignSelection = new Selection("SameSignSelection");
-  SameSignSelection -> addSelectionModule(new SameSignCut());
   
   
   RegisterSelection(JetSelection);
@@ -86,7 +84,7 @@ void TauIdCycle::BeginInputData( const SInputData& id ) throw( SError )
   RegisterSelection(RealTauSelection);
   RegisterSelection(TauSelection);
   RegisterSelection(OneTauSelection);
-  RegisterSelection(SameSignSelection);
+
     
   // ---------------- set up the histogram collections -------------------- 
 
@@ -181,29 +179,38 @@ void TauIdCycle::BeginInputData( const SInputData& id ) throw( SError )
   RegisterHistCollection( new ElectronHists("Electrons_FakeTauSelection_MediumTauSelection_noIso"));
   
   Double_t bins[5] = {20, 60, 120, 200, 800};
-  Book( TH1F( "pT_1_binned", "p_{T} leading tau [GeV]",4, bins));
-  Book( TH1F( "real_pT_1_binned", "p_{T} leading tau [GeV]",4, bins));
-  Book( TH1F( "fake_pT_1_binned", "p_{T} leading tau [GeV]",4, bins));
-  Book( TH1F( "Muons_pT_1_binned", "p_{T} leading tau [GeV]",4, bins));
-  Book( TH1F( "Electrons_pT_1_binned", "p_{T} leading tau [GeV]",4, bins));
-  Book( TH1F( "pT_1_binned_mediumSelection", "p_{T} leading tau [GeV]",4, bins));
-  Book( TH1F( "real_pT_1_binned_mediumSelection", "p_{T} leading tau [GeV]",4, bins));
-  Book( TH1F( "fake_pT_1_binned_mediumSelection", "p_{T} leading tau [GeV]",4, bins));
-  Book( TH1F( "Muons_pT_1_binned_mediumSelection", "p_{T} leading tau [GeV]",4, bins));
-  Book( TH1F( "Electrons_pT_1_binned_mediumSelection", "p_{T} leading tau [GeV]",4, bins));
+  Book( TH1F( "pT_1_binned", "p_{T} tau [GeV]",4, bins));
+  Book( TH1F( "real_pT_1_binned", "p_{T} tau [GeV]",4, bins));
+  Book( TH1F( "fake_pT_1_binned", "p_{T} tau [GeV]",4, bins));
+  Book( TH1F( "Muons_pT_1_binned", "p_{T} tau [GeV]",4, bins));
+  Book( TH1F( "Electrons_pT_1_binned", "p_{T} tau [GeV]",4, bins));
+  Book( TH1F( "pT_1_binned_mediumSelection", "p_{T} tau [GeV]",4, bins));
+  Book( TH1F( "real_pT_1_binned_mediumSelection", "p_{T} tau [GeV]",4, bins));
+  Book( TH1F( "fake_pT_1_binned_mediumSelection", "p_{T} tau [GeV]",4, bins));
+  Book( TH1F( "Muons_pT_1_binned_mediumSelection", "p_{T} tau [GeV]",4, bins));
+  Book( TH1F( "Electrons_pT_1_binned_mediumSelection", "p_{T} tau [GeV]",4, bins));
 
-  Book( TH1F( "eta_1", "#eta leading tau", 100,-3,3 ) );
-  Book( TH1F( "real_eta_1", "#eta leading tau", 100,-3,3 ) );
-  Book( TH1F( "fake_eta_1", "#eta leading tau", 100,-3,3 ) );
-  Book( TH1F( "eta_1_mediumSelection", "#eta leading tau", 100,-3,3 ) );
-  Book( TH1F( "real_eta_1_mediumSelection", "#eta leading tau", 100,-3,3 ) );
-  Book( TH1F( "fake_eta_1_mediumSelection", "#eta leading tau", 100,-3,3 ) );
-  Book( TH1F( "Muons_eta_1_mediumSelection", "#eta leading tau", 100,-3,3 ) );
-  Book( TH1F( "Muons_eta_1", "#eta leading tau", 100,-3,3 ) );
-  Book( TH1F( "Electrons_eta_1_mediumSelection", "#eta leading tau", 100,-3,3 ) );
-  Book( TH1F( "Electrons_eta_1", "#eta leading tau", 100,-3,3 ) );
+  Book( TH1F( "eta_1", "#eta tau", 100,-3,3 ) );
+  Book( TH1F( "real_eta_1", "#eta tau", 100,-3,3 ) );
+  Book( TH1F( "fake_eta_1", "#eta tau", 100,-3,3 ) );
+  Book( TH1F( "eta_1_mediumSelection", "#eta tau", 100,-3,3 ) );
+  Book( TH1F( "real_eta_1_mediumSelection", "#eta tau", 100,-3,3 ) );
+  Book( TH1F( "fake_eta_1_mediumSelection", "#eta tau", 100,-3,3 ) );
+  Book( TH1F( "Muons_eta_1_mediumSelection", "#eta tau", 100,-3,3 ) );
+  Book( TH1F( "Muons_eta_1", "#eta tau", 100,-3,3 ) );
+  Book( TH1F( "Electrons_eta_1_mediumSelection", "#eta tau", 100,-3,3 ) );
+  Book( TH1F( "Electrons_eta_1", "#eta tau", 100,-3,3 ) );
 
-  
+  Book( TH1F( "NJets", "number of jets", 13, -0.5, 12.5 ) );
+  Book( TH1F( "real_NJets", "number of jets", 13, -0.5, 12.5 ) );
+  Book( TH1F( "fake_NJets", "number of jets", 13, -0.5, 12.5 ) );
+  Book( TH1F( "Muons_NJets", "number of jets", 13, -0.5, 12.5 ) );
+  Book( TH1F( "Electrons_NJets", "number of jets", 13, -0.5, 12.5 ) );
+  Book( TH1F( "NJets_mediumSelection", "number of jets", 13, -0.5, 12.5 ) );
+  Book( TH1F( "real_NJets_mediumSelection", "number of jets", 13, -0.5, 12.5 ) );
+  Book( TH1F( "fake_NJets_mediumSelection", "number of jets", 13, -0.5, 12.5 ) );
+  Book( TH1F( "Muons_NJets_mediumSelection", "number of jets", 13, -0.5, 12.5 ) );
+  Book( TH1F( "Electrons_NJets_mediumSelection", "number of jets", 13, -0.5, 12.5 ) );
   
   // important: initialise histogram collections after their definition
   InitHistos();
@@ -249,7 +256,7 @@ void TauIdCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SEr
   static Selection* RealTauSelection = GetSelection("RealTauSelection");
   static Selection* TauSelection = GetSelection("TauSelection");
   static Selection* OneTauSelection = GetSelection("OneTauSelection");
-  static Selection* SameSignSelection = GetSelection("SameSignSelection");
+  
 
   Cleaner cleaner;
   
@@ -272,21 +279,22 @@ void TauIdCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SEr
   
   if (!AntibTagSelection->passSelection(bcc) && InvMassSelection -> passSelection(bcc) ) 
     {
-      // ----------------------- exactly one tau ------------------------------------- 
+      // ----------------------------------------------------------------------------- 
      
-//       FillControlHistos("_AntibTagSelection");
-//       if (!IsRealData && RealTauSelection->passSelection(bcc))
-// 	{
-// 	  FillControlHistos("_RealTauSelection");
-// 	}
-//       if (!IsRealData && !RealTauSelection->passSelection(bcc))
-// 	{
-// 	  FillControlHistos("_FakeTauSelection");
-// 	}
+       FillControlHistos("_AntibTagSelection");
+       if (!IsRealData && RealTauSelection->passSelection(bcc))
+ 	{
+ 	  FillControlHistos("_RealTauSelection");
+ 	}
+       if (!IsRealData && !RealTauSelection->passSelection(bcc))
+ 	{
+ 	  FillControlHistos("_FakeTauSelection");
+ 	}
       
       
       // ----------------------- at least one tau ------------------------------------
       
+       int NJets = bcc->jets->size();
        for (unsigned int i =0; i< bcc->taus->size(); ++i)
 	{
 	  Tau tau = bcc->taus->at(i);
@@ -308,6 +316,7 @@ void TauIdCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SEr
 		      IsElectronOrMuon =true; 
 		      Hist("Electrons_pT_1_binned") -> Fill(tau.pt(),weight);
 		      Hist("Electrons_eta_1") -> Fill(tau.eta(),weight);
+		      Hist("Electrons_NJets") -> Fill(NJets,weight);
 		      FillControlHistos("_Electrons");
 		      break;
 		    }
@@ -316,6 +325,7 @@ void TauIdCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SEr
 		      IsElectronOrMuon =true;
 		      Hist("Muons_pT_1_binned") -> Fill(tau.pt(),weight);
 		      Hist("Muons_eta_1") -> Fill(tau.eta(),weight);
+		      Hist("Muons_NJets") -> Fill(NJets,weight);
 		      FillControlHistos("_Muons");
 		      break;
 		    }
@@ -324,20 +334,20 @@ void TauIdCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SEr
 		{
 		  Hist("real_pT_1_binned") -> Fill(tau.pt(),weight);
 		  Hist("real_eta_1") -> Fill(tau.eta(),weight);
-		  FillControlHistos("_RealTauSelection");
+		  Hist("real_NJets") -> Fill(NJets,weight);
 		}
  	      if (fake && !IsElectronOrMuon) 
 		{
 		  Hist("fake_pT_1_binned") -> Fill(tau.pt(),weight);
 		  Hist("fake_eta_1") -> Fill(tau.eta(),weight);
-		  FillControlHistos("_FakeTauSelection");
+		  Hist("fake_NJets") -> Fill(NJets,weight);
 		}
 	    }
 	  if (!IsElectronOrMuon)
 	    {
 	      Hist ("pT_1_binned") -> Fill(tau.pt(),weight);
 	      Hist ("eta_1") -> Fill(tau.eta(),weight);
-	      FillControlHistos("_AntibTagSelection");
+	      Hist ("NJets") -> Fill(NJets,weight);
 	    }
 	}
       //------------------------------------------------------------------------------
@@ -369,20 +379,21 @@ void TauIdCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SEr
   
   if (!AntibTagSelection->passSelection(bcc) && InvMassSelection -> passSelection(bcc) ) 
     {
-      // ----------------------- exactly one tau -------------------------------------      
+      // ------------------------------------------------------------------------------      
 
-   //    FillControlHistos("_AntibTagSelection_MediumTauSelection");
-//       if (!IsRealData && RealTauSelection->passSelection(bcc))
-// 	{
-// 	  FillControlHistos("_RealTauSelection_MediumTauSelection");
-// 	}
-//       if (!IsRealData && !RealTauSelection->passSelection(bcc))
-// 	{
-// 	  FillControlHistos("_FakeTauSelection_MediumTauSelection");
-// 	}
+       FillControlHistos("_AntibTagSelection_MediumTauSelection");
+       if (!IsRealData && RealTauSelection->passSelection(bcc))
+ 	{
+ 	  FillControlHistos("_RealTauSelection_MediumTauSelection");
+ 	}
+       if (!IsRealData && !RealTauSelection->passSelection(bcc))
+ 	{
+ 	  FillControlHistos("_FakeTauSelection_MediumTauSelection");
+ 	}
       
       // ----------------------- at least one tau ------------------------------------- 
-      
+       
+       int NJets = bcc->jets->size();
        for (unsigned int i=0; i< bcc->taus->size(); ++i)
 	{
 	  Tau tau = bcc->taus->at(i);
@@ -404,6 +415,7 @@ void TauIdCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SEr
 		      IsElectronOrMuon =true; 
 		      Hist("Electrons_pT_1_binned_mediumSelection") -> Fill(tau.pt(),weight);
 		      Hist("Electrons_eta_1_mediumSelection") -> Fill(tau.eta(),weight);
+		      Hist("Electrons_NJets_mediumSelection") -> Fill(NJets,weight);
 		      FillControlHistos("_Electrons_MediumSelection");
 		      break;
 		    }
@@ -412,6 +424,7 @@ void TauIdCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SEr
 		      IsElectronOrMuon =true; 
 		      Hist("Muons_pT_1_binned_mediumSelection") -> Fill(tau.pt(),weight);
 		      Hist("Muons_eta_1_mediumSelection") -> Fill(tau.eta(),weight);
+		      Hist("Muons_NJets_mediumSelection") -> Fill(NJets,weight);
 		      FillControlHistos("_Muons_MediumSelection");
 		      break;
 		    }
@@ -419,20 +432,20 @@ void TauIdCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SEr
  	      if (!fake && !IsElectronOrMuon) {
 		Hist("real_pT_1_binned_mediumSelection") -> Fill(tau.pt(),weight);
 		Hist("real_eta_1_mediumSelection") -> Fill(tau.eta(),weight);
-		FillControlHistos("_RealTauSelection_MediumTauSelection");
+		Hist("real_NJets_mediumSelection") -> Fill(NJets,weight);
 	      }
  	      if (fake && !IsElectronOrMuon) 
 		{
 		  Hist("fake_pT_1_binned_mediumSelection") -> Fill(tau.pt(),weight);
 		  Hist("fake_eta_1_mediumSelection") -> Fill(tau.eta(),weight);
-		  FillControlHistos("_FakeTauSelection_MediumTauSelection");
+		  Hist("fake_NJets_mediumSelection") -> Fill(NJets,weight);
 		}
 	    }
 	  if (!IsElectronOrMuon)
 	    {
-	      FillControlHistos("_AntibTagSelection_MediumTauSelection");
 	      Hist ("pT_1_binned_mediumSelection") -> Fill(tau.pt(),weight);
 	      Hist ("eta_1_mediumSelection") -> Fill(tau.eta(),weight);
+	      Hist ("NJets_mediumSelection") -> Fill(NJets,weight);
 	    }
 	}
   //----------------------------------------------------------------------------------------

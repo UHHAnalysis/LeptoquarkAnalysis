@@ -85,12 +85,15 @@ void LQPreSelCycle::BeginInputData( const SInputData& id ) throw( SError )
   
   Selection* HTSelection = new Selection("HTSelection");
   HTSelection -> addSelectionModule(new STCut(350,100000000));
- 
+
+   
   RegisterSelection(VertexSelection);
   RegisterSelection(MuonSelection);
   RegisterSelection(JetSelection);
   RegisterSelection(TauSelection);
   RegisterSelection(HTSelection);
+  
+  
   
       
   // uncertainty
@@ -142,6 +145,7 @@ void LQPreSelCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( 
   static Selection* TauSelection = GetSelection("TauSelection");
   static Selection* HTSelection = GetSelection("HTSelection");
  
+  
   Cleaner cleaner;
   cleaner.SetJECUncertainty(m_jes_unc);
   
@@ -177,10 +181,12 @@ void LQPreSelCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( 
     
   // HT > 350 GeV
   if (!HTSelection -> passSelection(bcc))  throw SError( SError::SkipEvent );
-    
+
+
   WriteOutputTree();
   
   return;
 }
+
 
 

@@ -67,22 +67,21 @@
 	<Library Name="libLQAnalysis" />
 	<Library Name="libSFramePlugIns" />
 	<Library Name="libNtuple" />
-
 	<Package Name="SFrameCore.par" />
 	<Package Name="LQAnalysis.par" />
 
 
 
-	<!--		     <Cycle Name="LQPreSelCycle"  OutputDirectory="/scratch/hh/dust/naf/cms/user/mameyer/test/" PostFix="_test" TargetLumi="19500" > 	-->	   	 		 	
-		<Cycle Name="LQPreSelCycle"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/scratch/hh/dust/naf/cms/user/mameyer/LQPreSelCycle/proof/" OutputDirectory="/scratch/hh/dust/naf/cms/user/mameyer/LQPreSelCycle/" PostFix="JER_up" TargetLumi="19500" >   
+			     <Cycle Name="LQPreSelCycle"  OutputDirectory="/scratch/hh/dust/naf/cms/user/mameyer/test/" PostFix="_test" TargetLumi="19500" > 		   	 			 	
+		<!--	<Cycle Name="LQPreSelCycle"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/scratch/hh/dust/naf/cms/user/mameyer/LQPreSelCycle/proof/" OutputDirectory="/scratch/hh/dust/naf/cms/user/mameyer/LQPreSelCycle/" PostFix="" TargetLumi="19500" >   -->
 
-<!--		<InputData Lumi="1" NEventsMax="-1" Type="MC" Version="LQ200" Cacheable="False">
+		<InputData Lumi="1" NEventsMax="-1" Type="MC" Version="LQ200" Cacheable="False">
 		        &LQ200;
 		        <InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
 		</InputData> 
 		 
-		<InputData Lumi="1" NEventsMax="-1" Type="MC" Version="LQ250" Cacheable="False">
+<!--		<InputData Lumi="1" NEventsMax="-1" Type="MC" Version="LQ250" Cacheable="False">
 		        &LQ250;
 		        <InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
@@ -182,9 +181,9 @@
 	                &ttZ;
                         <InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
-		</InputData> -->		 	   
+		</InputData> 		 	   
 
-<!--		<InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="DATA_A" Cacheable="True">
+		<InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="DATA_A" Cacheable="True">
                        &MuData_A;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />  
@@ -194,21 +193,21 @@
                        &MuData_B;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />  
-		</InputData>  	-->
+		</InputData>  	
 		   	  	
-<!--		<InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="DATA_C" Cacheable="True">
+		<InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="DATA_C" Cacheable="True">
                        &MuData_C;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />  
-		</InputData>-->  	
+		</InputData>  	
 		
-<!--		 <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="DATA_D" Cacheable="True">
+		 <InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="DATA_D" Cacheable="True">
                        &MuData_D;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />  
-		</InputData>  -->		  			 	   		  	     	
+		</InputData>  		  			 	   		  	     	
 	  	     				
-<!--		<InputData Lumi="1" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="True">
+		<InputData Lumi="1" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="True">
 		        &TTbar;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
@@ -236,13 +235,13 @@
                         &W4Jets;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />  
-		</InputData> -->
+		</InputData> 
 
- 		<InputData Lumi="1" NEventsMax="-1" Type="MC" Version="DY_10to50" Cacheable="True">
+		<InputData Lumi="1" NEventsMax="-1" Type="MC" Version="DY_10to50" Cacheable="True">
 		        &DY_10to50;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />
-		</InputData> 
+		</InputData>  -->
 		
 <!--		<InputData Lumi="1" NEventsMax="-1" Type="MC" Version="DY1Jets_50toInf" Cacheable="True">
 		         &DY1Jets_50toInf; 
@@ -260,7 +259,7 @@
 		         &DY3Jets_50toInf;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />  
-		</InputData> -->
+		</InputData> 
 
 		<InputData Lumi="1" NEventsMax="-1" Type="MC" Version="DY4Jets_50toInf" Cacheable="True">
 		         &DY4Jets_50toInf;
@@ -395,7 +394,7 @@
 		        &TT_scaleup;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />
-		</InputData>-->
+		</InputData> -->
 		
 
 		<UserConfig>
@@ -416,13 +415,14 @@
 		      <Item Name="readTTbarReco" Value="False" />
 		      
 		      <Item Name="JECFileLocation" Value="/scratch/hh/dust/naf/cms/user/peiffer/CMSSW_5_3_10/src" />
-		      <Item Name="JECDataGlobalTag" Value="FT_53_V21_AN4" />
+		      <Item Name="JECDataGlobalTag" Value="FT_53_V21_AN6" />
 		      <Item Name="JECMCGlobalTag" Value="START53_V27" />
 		      <Item Name="JECJetCollection" Value="AK5PFchs" />
 	
 	              <Item Name="SystematicUncertainty" Value="JER" />
                       <Item Name="SystematicVariation" Value="up" /> 
 		      
+		
 		</UserConfig>
 	</Cycle>
 </JobConfiguration>

@@ -9,7 +9,7 @@
 	<Library Name="libSFrameTools" />
 	<Library Name="libJetMETObjects" />
 	<Library Name="libAnalysis" />
-	<Library Name="libSFramePlugIns" />
+<!--	<Library Name="libSFramePlugIns" />-->
 	<Library Name="libLQAnalysis" />
 	<Library Name="libNtuple" />
 	
@@ -17,8 +17,8 @@
 	<Package Name="LQAnalysis.par" />
 	
 
-      <!--          <Cycle Name="LQCycle"  OutputDirectory="./" PostFix="" TargetLumi="19619" >  	 -->		 	  			   	  	  
-           	<Cycle Name="LQCycle"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="" OutputDirectory="./" PostFix="" TargetLumi="19484.7" >   	 	  	       	     		   		 					 	   	   	
+       <!--             <Cycle Name="LQCycle"  OutputDirectory="./" PostFix="" TargetLumi="19619" >   	-->	 		 	  			   	  	  
+              	<Cycle Name="LQCycle"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="" OutputDirectory="./" PostFix="" TargetLumi="19484.7" >    		 					 	   	   	
 		<InputData Lumi="2882.8" NEventsMax="-1" Type="MC" Version="LQ200" Cacheable="False">
 		<In FileName="/scratch/hh/dust/naf/cms/user/mameyer/LQPreSelCycle/LQPreSelCycle.MC.LQ200.root" Lumi="0.0"/>   
 		        <InputTree Name="AnalysisTree" />
@@ -107,9 +107,9 @@
 		<InputData Lumi="1021682.1" NEventsMax="-1" Type="MC" Version="ttZ" Cacheable="False">
 		<In FileName="/scratch/hh/dust/naf/cms/user/mameyer/LQPreSelCycle/LQPreSelCycle.MC.ttZ.root" Lumi="0.0"/>   
                         <InputTree Name="AnalysisTree" />
-		</InputData>  	   	   
+		</InputData>  		   
   	    	 		  
- <!--	 	<InputData Lumi="1.0" NEventsMax="-1" Type="DATA" Version="DATA_A" Cacheable="False">
+ 	 	<InputData Lumi="1.0" NEventsMax="-1" Type="DATA" Version="DATA_A" Cacheable="False">
                 <In FileName="/scratch/hh/dust/naf/cms/user/mameyer/LQPreSelCycle/LQPreSelCycle.DATA.DATA_A.root" Lumi="0.0"/>     
 			<InputTree Name="AnalysisTree" />  
 		</InputData>   	
@@ -122,12 +122,12 @@
 		<InputData Lumi="1.0" NEventsMax="-1" Type="DATA" Version="DATA_C" Cacheable="False">
                 <In FileName="/scratch/hh/dust/naf/cms/user/mameyer/LQPreSelCycle/LQPreSelCycle.DATA.DATA_C.root" Lumi="0.0"/>     
 			<InputTree Name="AnalysisTree" />  
-		</InputData>   	
+		</InputData>  	
 
 		<InputData Lumi="1.0" NEventsMax="-1" Type="DATA" Version="DATA_D" Cacheable="False">
                 <In FileName="/scratch/hh/dust/naf/cms/user/mameyer/LQPreSelCycle/LQPreSelCycle.DATA.DATA_D.root" Lumi="0.0"/>     
 			<InputTree Name="AnalysisTree" />  
-		</InputData> --> 	
+		</InputData> 	
 	     	  
 	  	<InputData Lumi="88185.4" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="False">
 		<In FileName="/scratch/hh/dust/naf/cms/user/mameyer/LQPreSelCycle/LQPreSelCycle.MC.TTbar.root" Lumi="0.0"/>      
@@ -224,8 +224,7 @@
 			<InputTree Name="AnalysisTree" /> 
 		</InputData>
 	
-			
-	        <InputData Lumi="58.830" NEventsMax="-1" Type="MC" Version="QCDMu50to80" Cacheable="False">
+		<InputData Lumi="58.830" NEventsMax="-1" Type="MC" Version="QCDMu50to80" Cacheable="False">
 		<In FileName="/scratch/hh/dust/naf/cms/user/mameyer/LQPreSelCycle/LQPreSelCycle.MC.QCDMu50to80.root" Lumi="0.0"/>             
 			<InputTree Name="AnalysisTree" /> 
 		</InputData>
@@ -277,7 +276,6 @@
 		      <Item Name="ElectronCollection" Value="selectedPatElectronsPFlow" /> 
 		      <Item Name="MuonCollection" Value="selectedPatMuonsPFlow" />
 		      <Item Name="TauCollection" Value="selectedPatTausPFlow" />
-		<!--  <Item Name="TauCollection" Value="selectedPatTaus" />-->
 		      <Item Name="PrimaryVertexCollection" Value="goodOfflinePrimaryVertices" /> 
 		      <Item Name="METName" Value="patMETsPFlow" /> 
 		<!--  <Item Name="addGenInfo" Value="True" />-->
@@ -302,7 +300,7 @@
 		      <Item Name="LumiTrigger" Value="HLT_IsoMu24_eta2p1_v" />
 
 		      <Item Name="JECFileLocation" Value="/scratch/hh/dust/naf/cms/user/peiffer/CMSSW_5_3_10/src" />
-		      <Item Name="JECDataGlobalTag" Value="FT_53_V21_AN4" />
+		      <Item Name="JECDataGlobalTag" Value="FT_53_V21_AN6" />
 		      <Item Name="JECMCGlobalTag" Value="START53_V27" />
 		      <Item Name="JECJetCollection" Value="AK5PFchs" />
 

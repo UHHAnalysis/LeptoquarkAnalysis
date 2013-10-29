@@ -78,43 +78,43 @@ void LQCycle::BeginInputData( const SInputData& id ) throw( SError )
   
   Selection* JetPreSelection = new Selection("JetPreSelection");
   JetPreSelection -> addSelectionModule(new NJetSelection(2,999,50,2.5));
-  
+
   Selection* JetSelection = new Selection("JetSelection");
   JetSelection -> addSelectionModule(new NJetSelection(3,999,30,2.5));
-  
+
   Selection* LeadingJetSelection = new Selection("LeadingJetSelection");
   LeadingJetSelection -> addSelectionModule(new NJetSelection(1,999,100,2.5));
-  
+
   Selection* MET50Selection = new Selection("MET50Selection");
   MET50Selection -> addSelectionModule(new METCut(50,100000000));
-  
+
   Selection* HT350Selection = new Selection("HT350Selection");
   HT350Selection -> addSelectionModule(new STCut(350,100000000));
-  
+
   Selection* HT400Selection = new Selection("HT400Selection");
   HT400Selection -> addSelectionModule(new STCut(400,100000000));
-  
+
   Selection* HT700Selection = new Selection("HT700Selection");
   HT700Selection -> addSelectionModule(new STCut(700,100000000));
-  
+
   Selection* SameSignSelection = new Selection("SameSignSelection");
   SameSignSelection -> addSelectionModule(new SameSignCut());
-  
+
   Selection* OnebTagSelection = new Selection("OnebTagSelection");
   OnebTagSelection -> addSelectionModule(new NBTagSelection(1,999,e_CSVT));
-  
+
   Selection* TwobTagSelection = new Selection("TwobTagSelection");
   TwobTagSelection -> addSelectionModule(new NBTagSelection(2,999,e_CSVT));
-  
+
   Selection* LeadingJet150Selection = new Selection("LeadingJet150Selection"); 
   LeadingJet150Selection -> addSelectionModule(new NJetSelection(1,999,150,2.5));
-  
+
   Selection* ThirdJet50Selection = new Selection("ThirdJet50Selection");
   ThirdJet50Selection -> addSelectionModule(new NJetSelection(3,999,50,2.5));
-  
+
   Selection* MET100Selection = new Selection("MET100Selection");
   MET100Selection -> addSelectionModule(new METCut(100,100000000));
-  
+
   Selection* RealTauSelection  = new Selection("RealTauSelection");
   RealTauSelection -> addSelectionModule(new GenTauSelection());
 
@@ -139,153 +139,153 @@ void LQCycle::BeginInputData( const SInputData& id ) throw( SError )
   RegisterSelection(MET100Selection);
   RegisterSelection(RealTauSelection);
   RegisterSelection(FakeTausSelectionElectron);
-  
 
-  // ---------------- set up the histogram collections -------------------- 
-   
-  RegisterHistCollection( new JetHists("Jets_PreSelection"));
-  RegisterHistCollection( new TauHists("Taus_PreSelection"));
-  RegisterHistCollection( new ElectronHists("Electrons_PreSelection"));
-  RegisterHistCollection( new MuonHists("Muons_PreSelection"));
-  RegisterHistCollection( new EventHists("Events_PreSelection"));
 
-  RegisterHistCollection( new JetHists("Jets_Trigger"));
-  RegisterHistCollection( new TauHists("Taus_Trigger"));
-  RegisterHistCollection( new ElectronHists("Electrons_Trigger"));
-  RegisterHistCollection( new MuonHists("Muons_Trigger"));
-  RegisterHistCollection( new EventHists("Events_Trigger"));
+  //---------------- set up the histogram collections -------------------- 
 
-  RegisterHistCollection( new JetHists("Jets_OneTauDecayModeFinding"));
-  RegisterHistCollection( new TauHists("Taus_OneTauDecayModeFinding"));
-  RegisterHistCollection( new ElectronHists("Electrons_OneTauDecayModeFinding"));
-  RegisterHistCollection( new MuonHists("Muons_OneTauDecayModeFinding"));
-  RegisterHistCollection( new EventHists("Events_OneTauDecayModeFinding"));
+ RegisterHistCollection( new JetHists("Jets_PreSelection"));
+ RegisterHistCollection( new TauHists("Taus_PreSelection"));
+ RegisterHistCollection( new ElectronHists("Electrons_PreSelection"));
+ RegisterHistCollection( new MuonHists("Muons_PreSelection"));
+ RegisterHistCollection( new EventHists("Events_PreSelection"));
 
-  RegisterHistCollection( new JetHists("Jets_OneTightTau"));
-  RegisterHistCollection( new TauHists("Taus_OneTightTau"));
-  RegisterHistCollection( new ElectronHists("Electrons_OneTightTau"));
-  RegisterHistCollection( new MuonHists("Muons_OneTightTau"));
-  RegisterHistCollection( new EventHists("Events_OneTightTau"));
+ RegisterHistCollection( new JetHists("Jets_Trigger"));
+ RegisterHistCollection( new TauHists("Taus_Trigger"));
+ RegisterHistCollection( new ElectronHists("Electrons_Trigger"));
+ RegisterHistCollection( new MuonHists("Muons_Trigger"));
+ RegisterHistCollection( new EventHists("Events_Trigger"));
 
-  RegisterHistCollection( new JetHists("Jets_MET50"));
-  RegisterHistCollection( new TauHists("Taus_MET50"));
-  RegisterHistCollection( new ElectronHists("Electrons_MET50"));
-  RegisterHistCollection( new MuonHists("Muons_MET50"));
-  RegisterHistCollection( new EventHists("Events_MET50"));
+ RegisterHistCollection( new JetHists("Jets_OneTauDecayModeFinding"));
+ RegisterHistCollection( new TauHists("Taus_OneTauDecayModeFinding"));
+ RegisterHistCollection( new ElectronHists("Electrons_OneTauDecayModeFinding"));
+ RegisterHistCollection( new MuonHists("Muons_OneTauDecayModeFinding"));
+ RegisterHistCollection( new EventHists("Events_OneTauDecayModeFinding"));
 
-  RegisterHistCollection( new JetHists("Jets_MediumSelection"));
-  RegisterHistCollection( new TauHists("Taus_MediumSelection"));
-  RegisterHistCollection( new ElectronHists("Electrons_MediumSelection"));
-  RegisterHistCollection( new MuonHists("Muons_MediumSelection"));
-  RegisterHistCollection( new EventHists("Events_MediumSelection"));
+ RegisterHistCollection( new JetHists("Jets_OneTightTau"));
+ RegisterHistCollection( new TauHists("Taus_OneTightTau"));
+ RegisterHistCollection( new ElectronHists("Electrons_OneTightTau"));
+ RegisterHistCollection( new MuonHists("Muons_OneTightTau"));
+ RegisterHistCollection( new EventHists("Events_OneTightTau"));
 
-  RegisterHistCollection( new JetHists("Jets_MediumSelection_RealTauSelection"));
-  RegisterHistCollection( new TauHists("Taus_MediumSelection_RealTauSelection"));
-  RegisterHistCollection( new ElectronHists("Electrons_MediumSelection_RealTauSelection"));
-  RegisterHistCollection( new MuonHists("Muons_MediumSelection_RealTauSelection"));
-  RegisterHistCollection( new EventHists("Events_MediumSelection_RealTauSelection"));
- 
-  RegisterHistCollection( new JetHists("Jets_MediumSelection_FakeTauSelection"));
-  RegisterHistCollection( new TauHists("Taus_MediumSelection_FakeTauSelection"));
-  RegisterHistCollection( new ElectronHists("Electrons_MediumSelection_FakeTauSelection"));
-  RegisterHistCollection( new MuonHists("Muons_MediumSelection_FakeTauSelection"));
-  RegisterHistCollection( new EventHists("Events_MediumSelection_FakeTauSelection"));
+ RegisterHistCollection( new JetHists("Jets_MET50"));
+ RegisterHistCollection( new TauHists("Taus_MET50"));
+ RegisterHistCollection( new ElectronHists("Electrons_MET50"));
+ RegisterHistCollection( new MuonHists("Muons_MET50"));
+ RegisterHistCollection( new EventHists("Events_MET50"));
 
-  RegisterHistCollection( new JetHists("Jets_HT700"));
-  RegisterHistCollection( new TauHists("Taus_HT700"));
-  RegisterHistCollection( new ElectronHists("Electrons_HT700"));
-  RegisterHistCollection( new MuonHists("Muons_HT700"));
-  RegisterHistCollection( new EventHists("Events_HT700"));
+ RegisterHistCollection( new JetHists("Jets_MediumSelection"));
+ RegisterHistCollection( new TauHists("Taus_MediumSelection"));
+ RegisterHistCollection( new ElectronHists("Electrons_MediumSelection"));
+ RegisterHistCollection( new MuonHists("Muons_MediumSelection"));
+ RegisterHistCollection( new EventHists("Events_MediumSelection"));
 
-  RegisterHistCollection( new JetHists("Jets_MediumSelection_HT700"));
-  RegisterHistCollection( new TauHists("Taus_MediumSelection_HT700"));
-  RegisterHistCollection( new ElectronHists("Electrons_MediumSelection_HT700"));
-  RegisterHistCollection( new MuonHists("Muons_MediumSelection_HT700"));
-  RegisterHistCollection( new EventHists("Events_MediumSelection_HT700"));
+ RegisterHistCollection( new JetHists("Jets_MediumSelection_RealTauSelection"));
+ RegisterHistCollection( new TauHists("Taus_MediumSelection_RealTauSelection"));
+ RegisterHistCollection( new ElectronHists("Electrons_MediumSelection_RealTauSelection"));
+ RegisterHistCollection( new MuonHists("Muons_MediumSelection_RealTauSelection"));
+ RegisterHistCollection( new EventHists("Events_MediumSelection_RealTauSelection"));
 
-  RegisterHistCollection( new JetHists("Jets_LeadingJet100"));
-  RegisterHistCollection( new TauHists("Taus_LeadingJet100"));
-  RegisterHistCollection( new ElectronHists("Electrons_LeadingJet100"));
-  RegisterHistCollection( new MuonHists("Muons_LeadingJet100"));
-  RegisterHistCollection( new EventHists("Events_LeadingJet100"));
+ RegisterHistCollection( new JetHists("Jets_MediumSelection_FakeTauSelection"));
+ RegisterHistCollection( new TauHists("Taus_MediumSelection_FakeTauSelection"));
+ RegisterHistCollection( new ElectronHists("Electrons_MediumSelection_FakeTauSelection"));
+ RegisterHistCollection( new MuonHists("Muons_MediumSelection_FakeTauSelection"));
+ RegisterHistCollection( new EventHists("Events_MediumSelection_FakeTauSelection"));
 
-  RegisterHistCollection( new JetHists("Jets_LeadingJet150"));
-  RegisterHistCollection( new TauHists("Taus_LeadingJet150"));
-  RegisterHistCollection( new ElectronHists("Electrons_LeadingJet150"));
-  RegisterHistCollection( new MuonHists("Muons_LeadingJet150"));
-  RegisterHistCollection( new EventHists("Events_LeadingJet150"));
-  
-  RegisterHistCollection( new JetHists("Jets_ThirdJet30"));
-  RegisterHistCollection( new TauHists("Taus_ThirdJet30"));
-  RegisterHistCollection( new ElectronHists("Electrons_ThirdJet30"));
-  RegisterHistCollection( new MuonHists("Muons_ThirdJet30"));
-  RegisterHistCollection( new EventHists("Events_ThirdJet30"));
+ RegisterHistCollection( new JetHists("Jets_HT700"));
+ RegisterHistCollection( new TauHists("Taus_HT700"));
+ RegisterHistCollection( new ElectronHists("Electrons_HT700"));
+ RegisterHistCollection( new MuonHists("Muons_HT700"));
+ RegisterHistCollection( new EventHists("Events_HT700"));
 
-  RegisterHistCollection( new JetHists("Jets_ThirdJet50"));
-  RegisterHistCollection( new TauHists("Taus_ThirdJet50"));
-  RegisterHistCollection( new ElectronHists("Electrons_ThirdJet50"));
-  RegisterHistCollection( new MuonHists("Muons_ThirdJet50"));
-  RegisterHistCollection( new EventHists("Events_ThirdJet50"));
+ RegisterHistCollection( new JetHists("Jets_MediumSelection_HT700"));
+ RegisterHistCollection( new TauHists("Taus_MediumSelection_HT700"));
+ RegisterHistCollection( new ElectronHists("Electrons_MediumSelection_HT700"));
+ RegisterHistCollection( new MuonHists("Muons_MediumSelection_HT700"));
+ RegisterHistCollection( new EventHists("Events_MediumSelection_HT700"));
 
-  RegisterHistCollection( new JetHists("Jets_MediumSelection_SameSignCut"));
-  RegisterHistCollection( new TauHists("Taus_MediumSelection_SameSignCut"));
-  RegisterHistCollection( new ElectronHists("Electrons_MediumSelection_SameSignCut"));
-  RegisterHistCollection( new MuonHists("Muons_MediumSelection_SameSignCut"));
-  RegisterHistCollection( new EventHists("Events_MediumSelection_SameSignCut"));
+ RegisterHistCollection( new JetHists("Jets_LeadingJet100"));
+ RegisterHistCollection( new TauHists("Taus_LeadingJet100"));
+ RegisterHistCollection( new ElectronHists("Electrons_LeadingJet100"));
+ RegisterHistCollection( new MuonHists("Muons_LeadingJet100"));
+ RegisterHistCollection( new EventHists("Events_LeadingJet100"));
 
-  RegisterHistCollection( new JetHists("Jets_MediumSelection_OnebTag"));
-  RegisterHistCollection( new TauHists("Taus_MediumSelection_OnebTag"));
-  RegisterHistCollection( new ElectronHists("Electrons_MediumSelection_OnebTag"));
-  RegisterHistCollection( new MuonHists("Muons_MediumSelection_OnebTag"));
-  RegisterHistCollection( new EventHists("Events_MediumSelection_OnebTag"));
+ RegisterHistCollection( new JetHists("Jets_LeadingJet150"));
+ RegisterHistCollection( new TauHists("Taus_LeadingJet150"));
+ RegisterHistCollection( new ElectronHists("Electrons_LeadingJet150"));
+ RegisterHistCollection( new MuonHists("Muons_LeadingJet150"));
+ RegisterHistCollection( new EventHists("Events_LeadingJet150"));
 
-  RegisterHistCollection( new JetHists("Jets_MediumSelection_TwobTags"));
-  RegisterHistCollection( new TauHists("Taus_MediumSelection_TwobTags"));
-  RegisterHistCollection( new ElectronHists("Electrons_MediumSelection_TwobTags"));
-  RegisterHistCollection( new MuonHists("Muons_MediumSelection_TwobTags"));
-  RegisterHistCollection( new EventHists("Events_MediumSelection_TwobTags"));
+ RegisterHistCollection( new JetHists("Jets_ThirdJet30"));
+ RegisterHistCollection( new TauHists("Taus_ThirdJet30"));
+ RegisterHistCollection( new ElectronHists("Electrons_ThirdJet30"));
+ RegisterHistCollection( new MuonHists("Muons_ThirdJet30"));
+ RegisterHistCollection( new EventHists("Events_ThirdJet30"));
 
-  RegisterHistCollection( new JetHists("Jets_HardSelection_SameSignCut"));
-  RegisterHistCollection( new TauHists("Taus_HardSelection_SameSignCut"));
-  RegisterHistCollection( new ElectronHists("Electrons_HardSelection_SameSignCut"));
-  RegisterHistCollection( new MuonHists("Muons_HardSelection_SameSignCut"));
-  RegisterHistCollection( new EventHists("Events_HardSelection_SameSignCut"));
-  
-  RegisterHistCollection( new JetHists("Jets_HardSelection"));
-  RegisterHistCollection( new TauHists("Taus_HardSelection"));
-  RegisterHistCollection( new ElectronHists("Electrons_HardSelection"));
-  RegisterHistCollection( new MuonHists("Muons_HardSelection"));
-  RegisterHistCollection( new EventHists("Events_HardSelection"));
+ RegisterHistCollection( new JetHists("Jets_ThirdJet50"));
+ RegisterHistCollection( new TauHists("Taus_ThirdJet50"));
+ RegisterHistCollection( new ElectronHists("Electrons_ThirdJet50"));
+ RegisterHistCollection( new MuonHists("Muons_ThirdJet50"));
+ RegisterHistCollection( new EventHists("Events_ThirdJet50"));
 
-  RegisterHistCollection( new JetHists("Jets_HardSelection_RealTauSelection"));
-  RegisterHistCollection( new TauHists("Taus_HardSelection_RealTauSelection"));
-  RegisterHistCollection( new ElectronHists("Electrons_HardSelection_RealTauSelection"));
-  RegisterHistCollection( new MuonHists("Muons_HardSelection_RealTauSelection"));
-  RegisterHistCollection( new EventHists("Events_HardSelection_RealTauSelection"));
- 
-  RegisterHistCollection( new JetHists("Jets_HardSelection_FakeTauSelection"));
-  RegisterHistCollection( new TauHists("Taus_HardSelection_FakeTauSelection"));
-  RegisterHistCollection( new ElectronHists("Electrons_HardSelection_FakeTauSelection"));
-  RegisterHistCollection( new MuonHists("Muons_HardSelection_FakeTauSelection"));
-  RegisterHistCollection( new EventHists("Events_HardSelection_FakeTauSelection"));
+ RegisterHistCollection( new JetHists("Jets_MediumSelection_SameSignCut"));
+ RegisterHistCollection( new TauHists("Taus_MediumSelection_SameSignCut"));
+ RegisterHistCollection( new ElectronHists("Electrons_MediumSelection_SameSignCut"));
+ RegisterHistCollection( new MuonHists("Muons_MediumSelection_SameSignCut"));
+ RegisterHistCollection( new EventHists("Events_MediumSelection_SameSignCut"));
 
-  RegisterHistCollection( new JetHists("Jets_SoftSelection"));
-  RegisterHistCollection( new TauHists("Taus_SoftSelection"));
-  RegisterHistCollection( new ElectronHists("Electrons_SoftSelection"));
-  RegisterHistCollection( new MuonHists("Muons_SoftSelection"));
-  RegisterHistCollection( new EventHists("Events_SoftSelection"));
+ RegisterHistCollection( new JetHists("Jets_MediumSelection_OnebTag"));
+ RegisterHistCollection( new TauHists("Taus_MediumSelection_OnebTag"));
+ RegisterHistCollection( new ElectronHists("Electrons_MediumSelection_OnebTag"));
+ RegisterHistCollection( new MuonHists("Muons_MediumSelection_OnebTag"));
+ RegisterHistCollection( new EventHists("Events_MediumSelection_OnebTag"));
 
-  RegisterHistCollection( new JetHists("Jets_SoftSelection_SameSignCut"));
-  RegisterHistCollection( new TauHists("Taus_SoftSelection_SameSignCut"));
-  RegisterHistCollection( new ElectronHists("Electrons_SoftSelection_SameSignCut"));
-  RegisterHistCollection( new MuonHists("Muons_SoftSelection_SameSignCut"));
-  RegisterHistCollection( new EventHists("Events_SoftSelection_SameSignCut"));
-  
-  RegisterHistCollection( new JetHists("Jets_FakeTausElectrons"));
-  RegisterHistCollection( new TauHists("Taus_FakeTausElectrons"));
-  RegisterHistCollection( new ElectronHists("Electrons_FakeTausElectrons"));
-  RegisterHistCollection( new MuonHists("Muons_FakeTausElectrons"));
-  RegisterHistCollection( new EventHists("Events_FakeTausElectrons"));
+ RegisterHistCollection( new JetHists("Jets_MediumSelection_TwobTags"));
+ RegisterHistCollection( new TauHists("Taus_MediumSelection_TwobTags"));
+ RegisterHistCollection( new ElectronHists("Electrons_MediumSelection_TwobTags"));
+ RegisterHistCollection( new MuonHists("Muons_MediumSelection_TwobTags"));
+ RegisterHistCollection( new EventHists("Events_MediumSelection_TwobTags"));
+
+ RegisterHistCollection( new JetHists("Jets_HardSelection_SameSignCut"));
+ RegisterHistCollection( new TauHists("Taus_HardSelection_SameSignCut"));
+ RegisterHistCollection( new ElectronHists("Electrons_HardSelection_SameSignCut"));
+ RegisterHistCollection( new MuonHists("Muons_HardSelection_SameSignCut"));
+ RegisterHistCollection( new EventHists("Events_HardSelection_SameSignCut"));
+
+ RegisterHistCollection( new JetHists("Jets_HardSelection"));
+ RegisterHistCollection( new TauHists("Taus_HardSelection"));
+ RegisterHistCollection( new ElectronHists("Electrons_HardSelection"));
+ RegisterHistCollection( new MuonHists("Muons_HardSelection"));
+ RegisterHistCollection( new EventHists("Events_HardSelection"));
+
+ RegisterHistCollection( new JetHists("Jets_HardSelection_RealTauSelection"));
+ RegisterHistCollection( new TauHists("Taus_HardSelection_RealTauSelection"));
+ RegisterHistCollection( new ElectronHists("Electrons_HardSelection_RealTauSelection"));
+ RegisterHistCollection( new MuonHists("Muons_HardSelection_RealTauSelection"));
+ RegisterHistCollection( new EventHists("Events_HardSelection_RealTauSelection"));
+
+ RegisterHistCollection( new JetHists("Jets_HardSelection_FakeTauSelection"));
+ RegisterHistCollection( new TauHists("Taus_HardSelection_FakeTauSelection"));
+ RegisterHistCollection( new ElectronHists("Electrons_HardSelection_FakeTauSelection"));
+ RegisterHistCollection( new MuonHists("Muons_HardSelection_FakeTauSelection"));
+ RegisterHistCollection( new EventHists("Events_HardSelection_FakeTauSelection"));
+
+ RegisterHistCollection( new JetHists("Jets_SoftSelection"));
+ RegisterHistCollection( new TauHists("Taus_SoftSelection"));
+ RegisterHistCollection( new ElectronHists("Electrons_SoftSelection"));
+ RegisterHistCollection( new MuonHists("Muons_SoftSelection"));
+ RegisterHistCollection( new EventHists("Events_SoftSelection"));
+
+ RegisterHistCollection( new JetHists("Jets_SoftSelection_SameSignCut"));
+ RegisterHistCollection( new TauHists("Taus_SoftSelection_SameSignCut"));
+ RegisterHistCollection( new ElectronHists("Electrons_SoftSelection_SameSignCut"));
+ RegisterHistCollection( new MuonHists("Muons_SoftSelection_SameSignCut"));
+ RegisterHistCollection( new EventHists("Events_SoftSelection_SameSignCut"));
+
+ RegisterHistCollection( new JetHists("Jets_FakeTausElectrons"));
+ RegisterHistCollection( new TauHists("Taus_FakeTausElectrons"));
+ RegisterHistCollection( new ElectronHists("Electrons_FakeTausElectrons"));
+ RegisterHistCollection( new MuonHists("Muons_FakeTausElectrons"));
+ RegisterHistCollection( new EventHists("Events_FakeTausElectrons"));
 
   // important: initialise histogram collections after their definition
   InitHistos();
@@ -350,7 +350,7 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
   BaseCycleContainer* bcc = calc->GetBaseCycleContainer();
   bool IsRealData = calc->IsRealData();
   
-
+  
   // at least one tau decay mode finding pT>20 eta<2.1
   if (!TauSelection -> passSelection(bcc))  throw SError( SError::SkipEvent ); 
   FillControlHistos("_OneTauDecayModeFinding");
@@ -380,10 +380,10 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
 
   //------------------------------------Study of different selection----------------------------------------------------
   
-  //all taus tight
+   //all taus tight
   if (bcc-> taus) cleaner.TauCleaner(20, 2.1);   
   
-  // at least one tight tau
+   // at least one tight tau
   if (!TauSelection -> passSelection(bcc))  throw SError( SError::SkipEvent ); 
   
   //throw away all jets which have a distance smaller than DeltaR = 0.5 to a tau 
@@ -393,7 +393,7 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
   if (!IsRealData) calc -> ProduceWeight( m_lsf->GetTauWeight()); 
 
   // correction efficiency
-  //if (!IsRealData) calc -> ProduceWeight( m_lsf->GetTauEffUnc());    
+  if (!IsRealData) calc -> ProduceWeight( m_lsf->GetTauEffUnc());    
   FillControlHistos("_OneTightTau");
 
   if (!IsRealData && FakeTausSelectionElectron -> passSelection(bcc)) FillControlHistos("_FakeTausElectrons");
@@ -402,7 +402,7 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
   if (!JetSelection -> passSelection(bcc))  throw SError( SError::SkipEvent ); 
   FillControlHistos("_ThirdJet30");
 
-  // MET > 50 GeV 
+  //MET > 50 GeV 
   if (!MET50Selection -> passSelection(bcc))  throw SError( SError::SkipEvent ); 
   FillControlHistos("_MET50");
 
@@ -411,7 +411,7 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
     {
       // soft selection
       FillControlHistos("_SoftSelection");
-     
+  
       if (SameSignSelection-> passSelection(bcc))
 	{
 	  // soft selection with same sign cut
@@ -422,11 +422,11 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
   // at least one jet with pT > 100 GeV, eta < 2.5
   if (!LeadingJetSelection -> passSelection(bcc))  throw SError( SError::SkipEvent ); 
   FillControlHistos("_LeadingJet100");
-  
+
 
   // HT > 400 GeV
   if (!HT400Selection -> passSelection(bcc))  throw SError( SError::SkipEvent );
-  
+
   // medium selection without bTag
   FillControlHistos("_MediumSelection");
   if (!IsRealData && RealTauSelection->passSelection(bcc))
@@ -437,13 +437,13 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
     {
       FillControlHistos("_MediumSelection_FakeTauSelection");
     }
-  
- 
+
+
   if (HT700Selection -> passSelection(bcc)) 
     {
       // HT > 700 GeV
       FillControlHistos("_HT700");
-      
+   
       if (LeadingJet150Selection-> passSelection(bcc)) 
 	{
 	  // leading jet pT > 150 GeV
@@ -476,22 +476,22 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
 	    }
 	}
     }
-  
+
   // medium selection with at least one bTag                  
   if (OnebTagSelection -> passSelection(bcc)) FillControlHistos("_MediumSelection_OnebTag");
-    
+ 
   // medium selection with same sign cut
   if (SameSignSelection-> passSelection(bcc) ) FillControlHistos("_MediumSelection_SameSignCut"); 
-   
+
   // HT > 700 GeV, medium selection, without same sign but with b-tag
   if (HT700Selection -> passSelection(bcc)) FillControlHistos("_MediumSelection_HT700"); 
-  
+
   // medium selection with at least two btags
   if (TwobTagSelection -> passSelection(bcc))  FillControlHistos("_MediumSelection_TwobTags"); 
   
   
   return; 
-}
+ }
 
 
 

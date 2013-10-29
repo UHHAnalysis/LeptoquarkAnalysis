@@ -79,7 +79,7 @@ void TauIdPreSelCycle::BeginInputData( const SInputData& id ) throw( SError )
 
   PreSelection -> addSelectionModule(new NPrimaryVertexSelection(1)); //at least one good PV
   PreSelection -> addSelectionModule(new NMuonSelection(1,1,30,2.1));
-  PreSelection -> addSelectionModule(new NJetSelection(2,999,30,3.5));
+  PreSelection -> addSelectionModule(new NJetSelection(1,999,30,3.5));
   PreSelection -> addSelectionModule(new NTauSelection(1,999,20,2.1));
   PreSelection -> addSelectionModule(new METCut(40,10000000));
   PreSelection -> addSelectionModule(new TriggerSelection("HLT_IsoMu24_eta2p1_v"));

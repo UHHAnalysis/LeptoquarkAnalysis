@@ -56,7 +56,8 @@ public:
    /// Function called for every event
    virtual void ExecuteEvent( const SInputData&, Double_t ) throw( SError );
   
-        
+    
+     
 private:
    //
    // Put all your private variables here

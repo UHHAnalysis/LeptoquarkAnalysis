@@ -98,7 +98,7 @@ void LQCycle::BeginInputData( const SInputData& id ) throw( SError )
   HT700Selection -> addSelectionModule(new STCut(700,100000000));
 
   Selection* SameSignSelection = new Selection("SameSignSelection");
-  SameSignSelection -> addSelectionModule(new SameSignCut());
+  SameSignSelection -> addSelectionModule(new SameSignCutHalil());
 
   Selection* OnebTagSelection = new Selection("OnebTagSelection");
   OnebTagSelection -> addSelectionModule(new NBTagSelection(1,999,e_CSVT));
@@ -121,6 +121,15 @@ void LQCycle::BeginInputData( const SInputData& id ) throw( SError )
   Selection* FakeTausSelectionElectron  = new Selection("FakeTausSelectionElectron");
   FakeTausSelectionElectron -> addSelectionModule(new FakeTauSelectionElectron());
   
+  Selection* MuonInvMass  = new Selection("MuonInvMass");
+  MuonInvMass -> addSelectionModule(new MuonInvMassCut(80,100));
+
+  Selection* HalilSelection  = new Selection("HalilSelection");
+  HalilSelection -> addSelectionModule(new NMuonSelection(1,999,25,2.1));
+  HalilSelection -> addSelectionModule(new NTauSelection(1,999,35,2.1));
+  HalilSelection -> addSelectionModule(new SameSignCutHalil());
+  
+    
   RegisterSelection(Trigger);
   RegisterSelection(TauSelection);
   RegisterSelection(MuonSelection);
@@ -139,6 +148,9 @@ void LQCycle::BeginInputData( const SInputData& id ) throw( SError )
   RegisterSelection(MET100Selection);
   RegisterSelection(RealTauSelection);
   RegisterSelection(FakeTausSelectionElectron);
+  RegisterSelection(HalilSelection);
+  RegisterSelection(MuonInvMass);
+  
 
 
   //---------------- set up the histogram collections -------------------- 
@@ -166,6 +178,12 @@ void LQCycle::BeginInputData( const SInputData& id ) throw( SError )
  RegisterHistCollection( new ElectronHists("Electrons_OneTightTau"));
  RegisterHistCollection( new MuonHists("Muons_OneTightTau"));
  RegisterHistCollection( new EventHists("Events_OneTightTau"));
+
+ RegisterHistCollection( new JetHists("Jets_OneTightTau_WithoutCorrection"));
+ RegisterHistCollection( new TauHists("Taus_OneTightTau_WithoutCorrection"));
+ RegisterHistCollection( new ElectronHists("Electrons_OneTightTau_WithoutCorrection"));
+ RegisterHistCollection( new MuonHists("Muons_OneTightTau_WithoutCorrection"));
+ RegisterHistCollection( new EventHists("Events_OneTightTau_WithoutCorrection"));
 
  RegisterHistCollection( new JetHists("Jets_MET50"));
  RegisterHistCollection( new TauHists("Taus_MET50"));
@@ -257,17 +275,17 @@ void LQCycle::BeginInputData( const SInputData& id ) throw( SError )
  RegisterHistCollection( new MuonHists("Muons_HardSelection"));
  RegisterHistCollection( new EventHists("Events_HardSelection"));
 
- RegisterHistCollection( new JetHists("Jets_HardSelection_RealTauSelection"));
- RegisterHistCollection( new TauHists("Taus_HardSelection_RealTauSelection"));
- RegisterHistCollection( new ElectronHists("Electrons_HardSelection_RealTauSelection"));
- RegisterHistCollection( new MuonHists("Muons_HardSelection_RealTauSelection"));
- RegisterHistCollection( new EventHists("Events_HardSelection_RealTauSelection"));
+ RegisterHistCollection( new JetHists("Jets_MediumSelection700_RealTauSelection"));
+ RegisterHistCollection( new TauHists("Taus_MediumSelection700_RealTauSelection"));
+ RegisterHistCollection( new ElectronHists("Electrons_MediumSelection700_RealTauSelection"));
+ RegisterHistCollection( new MuonHists("Muons_MediumSelection700_RealTauSelection"));
+ RegisterHistCollection( new EventHists("Events_MediumSelection700_RealTauSelection"));
 
- RegisterHistCollection( new JetHists("Jets_HardSelection_FakeTauSelection"));
- RegisterHistCollection( new TauHists("Taus_HardSelection_FakeTauSelection"));
- RegisterHistCollection( new ElectronHists("Electrons_HardSelection_FakeTauSelection"));
- RegisterHistCollection( new MuonHists("Muons_HardSelection_FakeTauSelection"));
- RegisterHistCollection( new EventHists("Events_HardSelection_FakeTauSelection"));
+ RegisterHistCollection( new JetHists("Jets_MediumSelection700_FakeTauSelection"));
+ RegisterHistCollection( new TauHists("Taus_MediumSelection700_FakeTauSelection"));
+ RegisterHistCollection( new ElectronHists("Electrons_MediumSelection700_FakeTauSelection"));
+ RegisterHistCollection( new MuonHists("Muons_MediumSelection700_FakeTauSelection"));
+ RegisterHistCollection( new EventHists("Events_MediumSelection700_FakeTauSelection"));
 
  RegisterHistCollection( new JetHists("Jets_SoftSelection"));
  RegisterHistCollection( new TauHists("Taus_SoftSelection"));
@@ -286,6 +304,64 @@ void LQCycle::BeginInputData( const SInputData& id ) throw( SError )
  RegisterHistCollection( new ElectronHists("Electrons_FakeTausElectrons"));
  RegisterHistCollection( new MuonHists("Muons_FakeTausElectrons"));
  RegisterHistCollection( new EventHists("Events_FakeTausElectrons"));
+
+ RegisterHistCollection( new JetHists("Jets_OverlapWithHalil_MediumSelection700"));
+ RegisterHistCollection( new TauHists("Taus_OverlapWithHalil_MediumSelection700"));
+ RegisterHistCollection( new ElectronHists("Electrons_OverlapWithHalil_MediumSelection700"));
+ RegisterHistCollection( new MuonHists("Muons_OverlapWithHalil_MediumSelection700"));
+ RegisterHistCollection( new EventHists("Events_OverlapWithHalil_MediumSelection700"));
+
+ RegisterHistCollection( new JetHists("Jets_OverlapWithHalil_MediumSelection"));
+ RegisterHistCollection( new TauHists("Taus_OverlapWithHalil_MediumSelection"));
+ RegisterHistCollection( new ElectronHists("Electrons_OverlapWithHalil_MediumSelection"));
+ RegisterHistCollection( new MuonHists("Muons_OverlapWithHalil_MediumSelection"));
+ RegisterHistCollection( new EventHists("Events_OverlapWithHalil_MediumSelection"));
+
+ RegisterHistCollection( new JetHists("Jets_NoOverlapWithHalil_MediumSelection700"));
+ RegisterHistCollection( new TauHists("Taus_NoOverlapWithHalil_MediumSelection700"));
+ RegisterHistCollection( new ElectronHists("Electrons_NoOverlapWithHalil_MediumSelection700"));
+ RegisterHistCollection( new MuonHists("Muons_NoOverlapWithHalil_MediumSelection700"));
+ RegisterHistCollection( new EventHists("Events_NoOverlapWithHalil_MediumSelection700"));
+
+ RegisterHistCollection( new JetHists("Jets_NoOverlapWithHalil_MediumSelection"));
+ RegisterHistCollection( new TauHists("Taus_NoOverlapWithHalil_MediumSelection"));
+ RegisterHistCollection( new ElectronHists("Electrons_NoOverlapWithHalil_MediumSelection"));
+ RegisterHistCollection( new MuonHists("Muons_NoOverlapWithHalil_MediumSelection"));
+ RegisterHistCollection( new EventHists("Events_NoOverlapWithHalil_MediumSelection"));
+
+ RegisterHistCollection( new JetHists("Jets_MuonInvMass"));
+ RegisterHistCollection( new TauHists("Taus_MuonInvMass"));
+ RegisterHistCollection( new ElectronHists("Electrons_MuonInvMass"));
+ RegisterHistCollection( new MuonHists("Muons_MuonInvMass"));
+ RegisterHistCollection( new EventHists("Events_MuonInvMass"));
+
+ RegisterHistCollection( new JetHists("Jets_SameSignSelection_NoOverlap"));
+ RegisterHistCollection( new TauHists("Taus_SameSignSelection_NoOverlap"));
+ RegisterHistCollection( new ElectronHists("Electrons_SameSignSelection_NoOverlap"));
+ RegisterHistCollection( new MuonHists("Muons_SameSignSelection_NoOverlap"));
+ RegisterHistCollection( new EventHists("Events_SameSignSelection_NoOverlap"));
+
+ RegisterHistCollection( new JetHists("Jets_OppositeSignSelection_NoOverlap"));
+ RegisterHistCollection( new TauHists("Taus_OppositeSignSelection_NoOverlap"));
+ RegisterHistCollection( new ElectronHists("Electrons_OppositeSignSelection_NoOverlap"));
+ RegisterHistCollection( new MuonHists("Muons_OppositeSignSelection_NoOverlap"));
+ RegisterHistCollection( new EventHists("Events_OppositeSignSelection_NoOverlap"));
+
+  Double_t bins[5] = {20, 60, 120, 200, 800};
+ Book( TH1F( "Gluon_pT_Tau","Gluon_pT_Tau",4,bins));
+ Book( TH1F( "Gluon_pT_Tau_Halil","Gluon_pT_Tau_Halil",4,bins));
+ 
+ Book( TH1F( "Up_SS_pT_Tau","Up_SS_pT_Tau",4,bins));
+ Book( TH1F( "Up_SS_pT_Tau_Halil","Up_SS_pT_Tau_Halil",4,bins));
+ 
+ Book( TH1F( "Down_SS_pT_Tau","Down_SS_pT_Tau",4,bins));
+ Book( TH1F( "Down_SS_pT_Tau_Halil","Down_SS_pT_Tau_Halil",4,bins));
+ 
+ Book( TH1F( "ChargeFlip_pT_Tau","ChargeFlip_pT_Tau",4,bins));
+ Book( TH1F( "ChargeFlip_pT_Tau_Halil","ChargeFlip_pT_Tau_Halil",4,bins));
+
+
+
 
   // important: initialise histogram collections after their definition
   InitHistos();
@@ -343,23 +419,40 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
   static Selection* MET100Selection = GetSelection("MET100Selection");
   static Selection* RealTauSelection = GetSelection("RealTauSelection");
   static Selection* FakeTausSelectionElectron = GetSelection("FakeTausSelectionElectron");
-
+  static Selection* HalilSelection = GetSelection("HalilSelection");
+  static Selection* MuonInvMass = GetSelection("MuonInvMass");
+  
   
   Cleaner cleaner;
   EventCalc* calc = EventCalc::Instance();
   BaseCycleContainer* bcc = calc->GetBaseCycleContainer();
   bool IsRealData = calc->IsRealData();
   
-  
-  // at least one tau decay mode finding pT>20 eta<2.1
-  if (!TauSelection -> passSelection(bcc))  throw SError( SError::SkipEvent ); 
-  FillControlHistos("_OneTauDecayModeFinding");
-  
+  TString samplename(id.GetVersion());
+  if (samplename.Contains("W1Jets", TString::kIgnoreCase) || samplename.Contains("W2Jets", TString::kIgnoreCase) || samplename.Contains("W3Jets", TString::kIgnoreCase) || samplename.Contains("W4Jets", TString::kIgnoreCase)){
+    calc -> ProduceWeight(m_jsf->GetWeight());
+  }
+  if (m_sys_unc==e_TER){
+     if (m_sys_var==e_Up) cleaner.ApplyTERVariationUp();
+     if (m_sys_var==e_Down) cleaner.ApplyTERVariationDown();
+  }
+  if (!bcc->isRealData && bcc->taus) cleaner.TauEnergyResolutionShifter();
+
+  if (bcc->taus) cleaner.TauCleanerDecayModeFinding(20, 2.1);
   
   // trigger requirement
   if (!Trigger -> passSelection(bcc))  throw SError( SError::SkipEvent );
-  FillControlHistos("_Trigger");
+   FillControlHistos("_Trigger");
   
+  std::vector<Muon> uncleaned_muons;
+  for(unsigned int i=0; i<bcc->muons->size(); ++i) {
+    uncleaned_muons.push_back(bcc->muons->at(i));
+  }
+  std::vector<Tau> uncleaned_taus;
+  for(unsigned int i=0; i<bcc->taus->size(); ++i) {
+    uncleaned_taus.push_back(bcc->taus->at(i));
+  }
+
   // all muons tight, pT > 30 GeV 
   if (bcc-> muons) cleaner.MuonCleaner(30, 2.1,0.12); 
 
@@ -378,17 +471,29 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
   //PreSelection
   FillControlHistos("_PreSelection");
 
+  // at least one tau decay mode finding pT>20 eta<2.1
+  if (!TauSelection -> passSelection(bcc))  throw SError( SError::SkipEvent ); 
+ 
+  
+  if (!HT350Selection -> passSelection(bcc))  throw SError( SError::SkipEvent );  
+  FillControlHistos("_OneTauDecayModeFinding");
+
+
+  //if (MuonInvMass -> passSelection(bcc))  throw SError( SError::SkipEvent ); 
+  FillControlHistos("_MuonInvMass");
+
   //------------------------------------Study of different selection----------------------------------------------------
   
-   //all taus tight
+   //all taus medium
   if (bcc-> taus) cleaner.TauCleaner(20, 2.1);   
   
-   // at least one tight tau
+   // at least one medium tau
   if (!TauSelection -> passSelection(bcc))  throw SError( SError::SkipEvent ); 
   
   //throw away all jets which have a distance smaller than DeltaR = 0.5 to a tau 
   if (bcc->jets) cleaner.JetLeptonOverlapRemoval(); 
-  
+  FillControlHistos("_OneTightTau_WithoutCorrection");
+
   // correction fake rate
   if (!IsRealData) calc -> ProduceWeight( m_lsf->GetTauWeight()); 
 
@@ -415,13 +520,13 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
       if (SameSignSelection-> passSelection(bcc))
 	{
 	  // soft selection with same sign cut
-	  FillControlHistos("_SoftSelection_SameSignCut");
+      FillControlHistos("_SoftSelection_SameSignCut");
 	}
     }
 
   // at least one jet with pT > 100 GeV, eta < 2.5
   if (!LeadingJetSelection -> passSelection(bcc))  throw SError( SError::SkipEvent ); 
-  FillControlHistos("_LeadingJet100");
+   FillControlHistos("_LeadingJet100");
 
 
   // HT > 400 GeV
@@ -429,50 +534,169 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
 
   // medium selection without bTag
   FillControlHistos("_MediumSelection");
-  if (!IsRealData && RealTauSelection->passSelection(bcc))
-    {
-      FillControlHistos("_MediumSelection_RealTauSelection");
-    }
-  if (!IsRealData && !RealTauSelection->passSelection(bcc))
-    {
-      FillControlHistos("_MediumSelection_FakeTauSelection");
-    }
+  
+  if (!IsRealData)
+     {
+        for (unsigned int i =0; i< bcc->taus->size(); ++i)
+           {
+              Tau tau = bcc->taus->at(i);
+              bool IsElectronOrMuon = false;
+        
+              bool fake = true;
+              for(unsigned int j=0; j<bcc->genparticles->size(); ++j)
+                 {
+                    GenParticle genp = bcc->genparticles->at(j);
+                    double deltaR = genp.deltaR(tau);
+                    if (deltaR < 0.5 && abs(genp.pdgId())==15) 
+                       {
+                          fake = false;
+                          break;
+                       }
+                    if (deltaR < 0.5 && abs(genp.pdgId())==11 && genp.status()==3) 
+                       {
+                          IsElectronOrMuon =true; 
+                          break;
+                        }
+                     if (deltaR < 0.5 && abs(genp.pdgId())==13 && genp.status()==3) 
+                        {
+                           IsElectronOrMuon =true;
+                           break;
+                        }
+                  }
+              if (fake && !IsElectronOrMuon) 
+                  {
+                     int PdgId_new = GenParticleMatching(tau);
+                     if (PdgId_new ==21 || abs(PdgId_new) ==99)   Hist("Gluon_pT_Tau")->Fill(tau.pt(), weight);
+                                          
+                     if (((PdgId_new == 2 || PdgId_new == 4)&& tau.charge()==1)||((PdgId_new ==-2 || PdgId_new==-4)&& tau.charge()==-1))   Hist("Up_SS_pT_Tau")->Fill(tau.pt(), weight);
+                                          
+                     if (((PdgId_new ==1 || PdgId_new ==3 || PdgId_new ==5) && tau.charge()==1) || ((PdgId_new ==-1 || PdgId_new ==-3 || PdgId_new ==-5) && tau.charge()==-1)) Hist("Down_SS_pT_Tau")->Fill(tau.pt(), weight);
+    
+                     if (((PdgId_new ==1 || PdgId_new ==3 || PdgId_new ==5) && tau.charge()==-1) || ((PdgId_new ==-1 || PdgId_new ==-3 || PdgId_new ==-5) && tau.charge()==1) || ((PdgId_new ==2 || PdgId_new ==4) && tau.charge()==-1) || ((PdgId_new ==-2 || PdgId_new ==-4) && tau.charge()==1)) Hist("ChargeFlip_pT_Tau")->Fill(4, weight);   
+                  }
+           }
+     }
 
+  
+  if (!IsRealData){
+     if ( !RealTauSelection -> passSelection(bcc)) FillControlHistos("_MediumSelection_FakeTauSelection");
+  }
+  std::vector<Muon> muons_TightMareike;
+  for(unsigned int i=0; i<bcc->muons->size(); ++i) {
+     muons_TightMareike.push_back(bcc->muons->at(i));
+  }
+  std::vector<Tau> taus_MediumMareike;
+  for(unsigned int i=0; i<bcc->taus->size(); ++i) {
+     taus_MediumMareike.push_back(bcc->taus->at(i));
+  }
+  bcc->taus->clear();
+  for(unsigned int i=0; i<uncleaned_taus.size(); ++i) 
+    {
+      bcc->taus->push_back(uncleaned_taus.at(i));
+    }
+  bcc->muons->clear();
+  for(unsigned int i=0; i<uncleaned_muons.size(); ++i) 
+    {
+      bcc->muons->push_back(uncleaned_muons.at(i));
+    }
+  if (bcc-> taus) cleaner.TauCleanerHalil(20, 2.1);
+  if (bcc-> muons) cleaner.MuonCleanerHalil(25, 2.1, 0.12);
+  if (HalilSelection->passSelection(bcc))
+    {
+         FillControlHistos("_OverlapWithHalil_MediumSelection");
+    }
+  else 
+     {
+        FillControlHistos("_NoOverlapWithHalil_MediumSelection");
 
+        for(unsigned int i=0; i<taus_MediumMareike.size(); ++i) 
+           {
+              bcc->taus->push_back(taus_MediumMareike.at(i));
+           }
+        bcc->muons->clear();
+        for(unsigned int i=0; i<muons_TightMareike.size(); ++i) 
+           {
+              bcc->muons->push_back(muons_TightMareike.at(i));
+           }
+        if (SameSignSelection-> passSelection(bcc))  FillControlHistos("_SameSignSelection_NoOverlap");
+        else  FillControlHistos("_OppositeSignSelection_NoOverlap");
+        //if (IsRealData) cout <<"Medium selection: event number: "<<calc->GetEventNum()<<"run number: "<<calc->GetRunNum()<<"lumi section: "<<calc->GetLumiBlock()<<endl;
+
+        if (!IsRealData)
+           {
+              for (unsigned int i =0; i< bcc->taus->size(); ++i)
+                 {
+                    Tau tau = bcc->taus->at(i);
+                    bool IsElectronOrMuon = false;
+                    
+                    bool fake = true;
+                    for(unsigned int j=0; j<bcc->genparticles->size(); ++j)
+                       {
+                          GenParticle genp = bcc->genparticles->at(j);
+                          double deltaR = genp.deltaR(tau);
+                          if (deltaR < 0.5 && abs(genp.pdgId())==15) 
+                             {
+                                fake = false;
+                                break;
+                             }
+                          if (deltaR < 0.5 && abs(genp.pdgId())==11 && genp.status()==3) 
+                             {
+                                IsElectronOrMuon =true; 
+                                break;
+                             }
+                          if (deltaR < 0.5 && abs(genp.pdgId())==13 && genp.status()==3) 
+                             {
+                                IsElectronOrMuon =true;
+                                break;
+                             }
+                       }
+                    if (fake && !IsElectronOrMuon) 
+                       {
+                          int PdgId_new = GenParticleMatching(tau);
+                          if (PdgId_new ==21)   Hist("Gluon_pT_Tau_Halil")->Fill(tau.pt(), weight);
+                                          
+                          if (((PdgId_new == 2 || PdgId_new == 4)&& tau.charge()==1)||((PdgId_new ==-2 || PdgId_new==-4)&& tau.charge()==-1))   Hist("Up_SS_pT_Tau_Halil")->Fill(tau.pt(), weight);
+                          
+                          if (((PdgId_new ==1 || PdgId_new ==3 || PdgId_new ==5) && tau.charge()==1) || ((PdgId_new ==-1 || PdgId_new ==-3 || PdgId_new ==-5) && tau.charge()==-1)) Hist("Down_SS_pT_Tau_Halil")->Fill(tau.pt(), weight);
+    
+                          if (((PdgId_new ==1 || PdgId_new ==3 || PdgId_new ==5) && tau.charge()==-1) || ((PdgId_new ==-1 || PdgId_new ==-3 || PdgId_new ==-5) && tau.charge()==1) || ((PdgId_new ==2 || PdgId_new ==4) && tau.charge()==-1) || ((PdgId_new ==-2 || PdgId_new ==-4) && tau.charge()==1)) Hist("ChargeFlip_pT_Tau_Halil")->Fill(4, weight);   
+                       }
+                    
+                 }
+           }
+        
+        
+        
+     }
+  for(unsigned int i=0; i<taus_MediumMareike.size(); ++i) 
+     {
+      bcc->taus->push_back(taus_MediumMareike.at(i));
+    }
+  bcc->muons->clear();
+  for(unsigned int i=0; i<muons_TightMareike.size(); ++i) 
+    {
+      bcc->muons->push_back(muons_TightMareike.at(i));
+    }
   if (HT700Selection -> passSelection(bcc)) 
     {
       // HT > 700 GeV
-      FillControlHistos("_HT700");
+        FillControlHistos("_HT700");
    
       if (LeadingJet150Selection-> passSelection(bcc)) 
 	{
 	  // leading jet pT > 150 GeV
-	  FillControlHistos("_LeadingJet150");
+        FillControlHistos("_LeadingJet150");
 	  
 	  if (ThirdJet50Selection-> passSelection(bcc)) 
 	    {
-	      FillControlHistos("_ThirdJet50");
+          FillControlHistos("_ThirdJet50");
 	      
 	      if (MET100Selection-> passSelection(bcc)) 
 		{
 		  // MET > 100 GeV
 		  FillControlHistos("_HardSelection");
 		  
-		  if (!IsRealData && RealTauSelection->passSelection(bcc))
-		    {
-		      FillControlHistos("_HardSelection_RealTauSelection");
-		    }
-		  if (!IsRealData && !RealTauSelection->passSelection(bcc))
-		    {
-		      FillControlHistos("_HardSelection_FakeTauSelection");
-		    }
-		  
-		  if (SameSignSelection-> passSelection(bcc))
-		    {
-		      // hard selection with same sign cut
-		      FillControlHistos("_HardSelection_SameSignCut");
-		    }
-		}
+      }
 	    }
 	}
     }
@@ -481,13 +705,56 @@ void LQCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( SError
   if (OnebTagSelection -> passSelection(bcc)) FillControlHistos("_MediumSelection_OnebTag");
  
   // medium selection with same sign cut
-  if (SameSignSelection-> passSelection(bcc) ) FillControlHistos("_MediumSelection_SameSignCut"); 
+    if (SameSignSelection-> passSelection(bcc) ) FillControlHistos("_MediumSelection_SameSignCut"); 
 
   // HT > 700 GeV, medium selection, without same sign but with b-tag
-  if (HT700Selection -> passSelection(bcc)) FillControlHistos("_MediumSelection_HT700"); 
+  if (HT700Selection -> passSelection(bcc)) 
+     {
+        FillControlHistos("_MediumSelection_HT700"); 
+        bcc->taus->clear();
+		  for(unsigned int i=0; i<uncleaned_taus.size(); ++i) 
+           {
+              bcc->taus->push_back(uncleaned_taus.at(i));
+           }
+		  bcc->muons->clear();
+		  for(unsigned int i=0; i<uncleaned_muons.size(); ++i) 
+		    {
+             bcc->muons->push_back(uncleaned_muons.at(i));
+		    }
+		  if (bcc-> taus) cleaner.TauCleanerHalil(20, 2.1);
+		  if (bcc-> muons) cleaner.MuonCleanerHalil(25, 2.1, 0.12);
+		  if (HalilSelection->passSelection(bcc))
+           {
+                 FillControlHistos("_OverlapWithHalil_MediumSelection700");
+           }
+		  else 
+           {
+              FillControlHistos("_NoOverlapWithHalil_MediumSelection700");
+              //if (IsRealData) cout <<"Medium HT700 selection: event number: "<<calc->GetEventNum()<<"run number: "<<calc->GetRunNum()<<"lumi section: "<<calc->GetLumiBlock()<<endl;
+           }
+		  for(unsigned int i=0; i<taus_MediumMareike.size(); ++i) 
+           {
+              bcc->taus->push_back(taus_MediumMareike.at(i));
+           }
+		  bcc->muons->clear();
+		  for(unsigned int i=0; i<muons_TightMareike.size(); ++i) 
+           {
+              bcc->muons->push_back(muons_TightMareike.at(i));
+           }
+		  
+		  if (!IsRealData && RealTauSelection->passSelection(bcc))
+           {
+                  FillControlHistos("_MediumSelection700_RealTauSelection");
+           }
+		  if (!IsRealData && !RealTauSelection->passSelection(bcc))
+           {
+                  FillControlHistos("_MediumSelection700_FakeTauSelection");
+           }
+		  
+		}
 
   // medium selection with at least two btags
-  if (TwobTagSelection -> passSelection(bcc))  FillControlHistos("_MediumSelection_TwobTags"); 
+   if (TwobTagSelection -> passSelection(bcc))  FillControlHistos("_MediumSelection_TwobTags"); 
   
   
   return; 
@@ -511,3 +778,31 @@ void LQCycle::FillControlHistos(TString postfix)
     muonhists->Fill();
     tauhists->Fill();
 }
+
+int LQCycle::GenParticleMatching(Tau tau)
+{
+   EventCalc* calc = EventCalc::Instance();
+   BaseCycleContainer* bcc = calc->GetBaseCycleContainer();
+   
+   GenParticle genp_matched;
+   double pT_max = 0;
+   for (unsigned int i=0; i < bcc->genparticles->size(); ++i)
+      {
+         GenParticle genp = bcc->genparticles->at(i);
+         double deltaR = tau.deltaR(genp);
+         if (deltaR < 0.5 && genp.status() == 3) 
+            {
+               if (genp.pt() > pT_max)
+                  {
+                     if (abs(genp.pdgId())==1 || abs(genp.pdgId())==2 || abs(genp.pdgId())==3 || abs(genp.pdgId())==4 || abs(genp.pdgId())==5 || abs(genp.pdgId())==6 || abs(genp.pdgId())==21) 
+                        {
+                           genp_matched = genp;
+                           pT_max = genp.pt();   
+                        }
+                  }
+            }
+      }
+   if (pT_max > 0 ) return genp_matched.pdgId();
+   else return 99;
+}
+

@@ -80,7 +80,6 @@ void TauIdPreSelCycle::BeginInputData( const SInputData& id ) throw( SError )
   PreSelection -> addSelectionModule(new NPrimaryVertexSelection(1)); //at least one good PV
   PreSelection -> addSelectionModule(new NMuonSelection(1,1,30,2.1));
   PreSelection -> addSelectionModule(new NJetSelection(1,999,30,3.5));
-  PreSelection -> addSelectionModule(new NTauSelection(1,999,20,2.1));
   PreSelection -> addSelectionModule(new METCut(40,10000000));
   PreSelection -> addSelectionModule(new TriggerSelection("HLT_IsoMu24_eta2p1_v"));
   
@@ -140,7 +139,6 @@ void TauIdPreSelCycle::ExecuteEvent( const SInputData& id, Double_t weight) thro
   if (bcc->pvs)  cleaner.PrimaryVertexCleaner(4, 24., 2.);
   if (bcc->electrons) cleaner.ElectronCleaner(15,2.5,0.1);
   if (bcc->muons) cleaner.MuonCleaner(30,2.1);  
-  if (bcc-> taus) cleaner.TauCleanerDecayModeFinding(20, 2.1);
   if (!PreSelection->passSelection(bcc))  throw SError( SError::SkipEvent );
   
    

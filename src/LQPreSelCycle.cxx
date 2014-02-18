@@ -81,17 +81,17 @@ void LQPreSelCycle::BeginInputData( const SInputData& id ) throw( SError )
   JetSelection -> addSelectionModule(new NJetSelection(2,999,50,3.0));
   
   Selection* TauSelection = new Selection("TauSelection");
-  TauSelection -> addSelectionModule(new NTauSelection(1,999,20,2.1));
+  TauSelection -> addSelectionModule(new NTauSelection(1,999,10,2.1));
   
-  Selection* HTSelection = new Selection("HTSelection");
-  HTSelection -> addSelectionModule(new STCut(350,100000000));
+  //Selection* HTSelection = new Selection("HTSelection");
+  //HTSelection -> addSelectionModule(new STCut(350,100000000));
 
    
   RegisterSelection(VertexSelection);
   RegisterSelection(MuonSelection);
   RegisterSelection(JetSelection);
   RegisterSelection(TauSelection);
-  RegisterSelection(HTSelection);
+  //RegisterSelection(HTSelection);
   
   
   
@@ -143,7 +143,7 @@ void LQPreSelCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( 
   static Selection* MuonSelection = GetSelection("MuonSelection");
   static Selection* JetSelection = GetSelection("JetSelection");
   static Selection* TauSelection = GetSelection("TauSelection");
-  static Selection* HTSelection = GetSelection("HTSelection");
+  //static Selection* HTSelection = GetSelection("HTSelection");
  
   
   Cleaner cleaner;
@@ -168,7 +168,8 @@ void LQPreSelCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( 
   if (bcc->jets) cleaner.JetCleaner(30,3.0,true);
   if (bcc->pvs)  cleaner.PrimaryVertexCleaner(4, 24., 2.);
   if (bcc->muons) cleaner.MuonCleaner_Loose(25,2.1);  
-  if (bcc->taus) cleaner.TauCleanerDecayModeFinding(20, 2.1);
+  if (bcc->taus) cleaner.TauCleanerDecayModeFinding(10, 2.1);
+  if (bcc->electrons) cleaner.ElectronCleaner(30,2.5,0.1,false,false);
     
   // at least one good primary vertex
   if (!VertexSelection->passSelection(bcc))  throw SError( SError::SkipEvent );
@@ -180,7 +181,7 @@ void LQPreSelCycle::ExecuteEvent( const SInputData& id, Double_t weight) throw( 
   if (!JetSelection -> passSelection(bcc) ) throw SError( SError::SkipEvent );
     
   // HT > 350 GeV
-  if (!HTSelection -> passSelection(bcc))  throw SError( SError::SkipEvent );
+  //if (!HTSelection -> passSelection(bcc))  throw SError( SError::SkipEvent );
 
 
   WriteOutputTree();

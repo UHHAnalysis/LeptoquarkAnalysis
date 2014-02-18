@@ -58,7 +58,7 @@ public:
   /// Fill control histograms
   virtual void FillControlHistos(TString postfix="");
   
-
+   virtual int GenParticleMatching(Tau tau);
 
 private:
    //

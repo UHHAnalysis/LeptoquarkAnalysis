@@ -17,5 +17,8 @@
 #pragma link C++ class LQCycle+;
 #pragma link C++ class TauIdPreSelCycle+;
 #pragma link C++ class TauIdCycle+;
+#pragma link C++ class DYPreSelCycle+;
+#pragma link C++ class DYCycle+;
+#pragma link C++ class ClosureTestCycle+;
 
 #endif // __CINT__

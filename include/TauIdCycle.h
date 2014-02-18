@@ -40,25 +40,30 @@ public:
    TauIdCycle();
    /// Default destructor
    ~TauIdCycle();
-
+   
    /// Function called at the beginning of the cycle
    virtual void BeginCycle() throw( SError );
    /// Function called at the end of the cycle
    virtual void EndCycle() throw( SError );
-
+   
    /// Function called at the beginning of a new input data
    virtual void BeginInputData( const SInputData& ) throw( SError );
    /// Function called after finishing to process an input data
    virtual void EndInputData  ( const SInputData& ) throw( SError );
-
+   
    /// Function called after opening each new input file
    virtual void BeginInputFile( const SInputData& ) throw( SError );
-
+   
    /// Function called for every event
    virtual void ExecuteEvent( const SInputData&, Double_t ) throw( SError );
-  
-  /// Fill control histograms
+   
+   /// Fill control histograms
    virtual void FillControlHistos(TString postfix="");
+   
+   virtual int Matching(Tau tau, vector<Jet> jets);
+
+   virtual int GenParticleMatching(Tau tau);
+   
 
 private:
    //

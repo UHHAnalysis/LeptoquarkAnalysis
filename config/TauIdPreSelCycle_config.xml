@@ -35,6 +35,8 @@
 <!ENTITY W2Jets SYSTEM "../../SFrameAnalysis/config/Samples_TTBSM53/W2JetsToLNu.xml">
 <!ENTITY W3Jets SYSTEM "../../SFrameAnalysis/config/Samples_TTBSM53/W3JetsToLNu.xml">
 <!ENTITY W4Jets SYSTEM "../../SFrameAnalysis/config/Samples_TTBSM53/W4JetsToLNu.xml">
+<!ENTITY WJets_v1 SYSTEM "../../SFrameAnalysis/config/Samples_TTBSM53/WJetsToLNu_v1.xml">
+<!ENTITY WJets_v2 SYSTEM "../../SFrameAnalysis/config/Samples_TTBSM53/WJetsToLNu_v2.xml">
 <!ENTITY DY_10to50 SYSTEM "../../SFrameAnalysis/config/Samples_TTBSM53/DY_10to50.xml">
 <!ENTITY DY1Jets_50toInf SYSTEM "../../SFrameAnalysis/config/Samples_TTBSM53/DY1Jets.xml">
 <!ENTITY DY2Jets_50toInf SYSTEM "../../SFrameAnalysis/config/Samples_TTBSM53/DY2Jets.xml">
@@ -63,7 +65,6 @@
 	<Library Name="libJetMETObjects" />
 	<Library Name="libSFrameTools" />
 	<Library Name="libAnalysis" />
-	<Library Name="libSFramePlugIns" />
 	<Library Name="libLQAnalysis" />
 	<Library Name="libNtuple" />
 	
@@ -73,11 +74,11 @@
  
  <!--             <Cycle Name="TauIdPreSelCycle"  OutputDirectory="./" PostFix="_thesis" TargetLumi="19500" >  -->	 
 
-         	     <Cycle Name="TauIdPreSelCycle"  RunMode="PROOF" ProofServer="lite://"  ProofWorkDir="/scratch/hh/dust/naf/cms/user/mameyer/TauIdPreSelCycle/proof/" OutputDirectory="/scratch/hh/dust/naf/cms/user/mameyer/" PostFix="" TargetLumi="19500" >     	  
+         	     <Cycle Name="TauIdPreSelCycle"  RunMode="PROOF" ProofServer="pod://"  ProofWorkDir="/nfs/dust/cms/user/mameyer/TauIdPreSelCycle/proof/" OutputDirectory="/nfs/dust/cms/user/mameyer/" PostFix="" TargetLumi="19500" >     	  
 
 
 		
- 		<InputData Lumi="1" NEventsMax="-1" Type="MC" Version="LQ200" Cacheable="True">
+<!-- 		<InputData Lumi="1" NEventsMax="-1" Type="MC" Version="LQ200" Cacheable="True">
 		        &LQ200;
 		        <InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
@@ -195,7 +196,7 @@
                        &MuData_B;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />  
-		</InputData>  	
+		</InputData>  	-->
 		   	  	
 		<InputData Lumi="1" NEventsMax="-1" Type="DATA" Version="DATA_C" Cacheable="True">
                        &MuData_C;
@@ -209,7 +210,7 @@
 			<OutputTree Name="AnalysisTree" />  
 		</InputData>  		  			 	   		  	     	
 	  	     				
-		<InputData Lumi="1" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="True">
+<!--		<InputData Lumi="1" NEventsMax="-1" Type="MC" Version="TTbar" Cacheable="True">
 		        &TTbar;
 			<InputTree Name="AnalysisTree" />
 			<OutputTree Name="AnalysisTree" />
@@ -219,9 +220,9 @@
                         &W1Jets;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />  
-		</InputData> 
+		</InputData> -->
 
-	        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="W2Jets" Cacheable="True">
+<!--	        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="W2Jets" Cacheable="True">
                         &W2Jets;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />  
@@ -237,9 +238,21 @@
                         &W4Jets;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />  
+		</InputData> -->
+
+<!--		 <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="WJets_v1" Cacheable="True">
+                        &WJets_v1;
+			<InputTree Name="AnalysisTree" /> 
+			<OutputTree Name="AnalysisTree" />  
 		</InputData> 
 
-		<InputData Lumi="-1" NEventsMax="-1" Type="MC" Version="DY_10to50" Cacheable="True">
+	        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="WJets_v2" Cacheable="True">
+                        &WJets_v2;
+			<InputTree Name="AnalysisTree" /> 
+			<OutputTree Name="AnalysisTree" />  
+		</InputData> -->	
+
+<!--		<InputData Lumi="-1" NEventsMax="-1" Type="MC" Version="DY_10to50" Cacheable="True">
 		        &DY_10to50;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />
@@ -355,8 +368,8 @@
 		        &QCDMu120to170;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />
-		</InputData>
-	        <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="QCDMu170to300" Cacheable="True">
+		</InputData>-->
+	 <!--       <InputData Lumi="1" NEventsMax="-1" Type="MC" Version="QCDMu170to300" Cacheable="True">
 		        &QCDMu170to300;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />
@@ -386,7 +399,7 @@
 		        &QCDMu1000;
 			<InputTree Name="AnalysisTree" /> 
 			<OutputTree Name="AnalysisTree" />
-		</InputData>	    		
+		</InputData>	 	-->	
 
 
 		<UserConfig>
@@ -397,7 +410,8 @@
              <!--     <Item Name="TauCollection" Value="selectedPatTaus" />-->
 		      <Item Name="PrimaryVertexCollection" Value="goodOfflinePrimaryVertices" /> 
 		      <Item Name="METName" Value="patMETsPFlow" /> 
-             <!--     <Item Name="addGenInfo" Value="True" />-->
+		      <Item Name="GenJetCollection" Value="ak5GenJetsNoNu" /> 
+                      <Item Name="addGenInfo" Value="True" />
 	     <!--     <Item Name="TopJetCollection" Value="goodPatJetsCATopTagPF" />-->
 	     <!--     <Item Name="PrunedJetCollection" Value="goodPatJetsCA8PrunedPF" /> -->
 	     <!--     <Item Name="TopJetCollectionGen" Value="caTopTagGen" />-->
@@ -407,7 +421,7 @@
 		      <Item Name="readTTbarReco" Value="False" />
 		      <Item Name="PFParticleCollection" Value="PFParticles" /> 
 
-		      <Item Name="JECFileLocation" Value="/scratch/hh/dust/naf/cms/user/peiffer/CMSSW_5_3_10/src" />
+		      <Item Name="JECFileLocation" Value="/nfs/dust/cms/user/peiffer/CMSSW_5_3_10/src" />
 		      <Item Name="JECDataGlobalTag" Value="FT_53_V21_AN6" />
 		      <Item Name="JECMCGlobalTag" Value="START53_V27" />
 		      <Item Name="JECJetCollection" Value="AK5PFchs" />
